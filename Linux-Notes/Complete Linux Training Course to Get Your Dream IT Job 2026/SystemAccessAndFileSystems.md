@@ -13,6 +13,11 @@
 - [6. Creating File and Directory](#6-creating-file-and-directory)
   - [6.1. Copying Directories](#61-copying-directories)
   - [6.2. Finding Files and Directories](#62-finding-files-and-directories)
+  - [6.3. Difference between find and locate commands](#63-difference-between-find-and-locate-commands)
+- [7. Wildcards](#7-wildcards)
+  - [7.1. Special Note](#71-special-note)
+- [8. Linux File Types](#8-linux-file-types)
+- [Soft and Hard links](#soft-and-hard-links)
 
 # 1. Important Things to Remember in Linux
 
@@ -66,7 +71,7 @@
 ## 4.1. Type Column
 | Position | Description                                                                                                  |
 | -------- | ------------------------------------------------------------------------------------------------------------ |
-| 0        | d &emsp; Object is a directory <br> l &emsp; Object is a link(shortcut) <br> - (DASH) &emsp; Object is a regular file |
+| 0        | d &emsp; Object is a directory <br> l &emsp; Object is a link(shortcut) <br> - (DASH) &emsp; Object is a regular file <br> Refer to [Section 8](#8-linux-file-types) |
 | 1 to 3   | This groups sets the `Owner` permission of the object                                                        |
 | 4-6      | This groups sets the `Group` permission of the object                                                        |
 | 7-9      | This groups sets the `Others` permission of the object           |
@@ -160,6 +165,75 @@ Optional Arguements :
   - To install :
     > yum install mlocate
 
+## 6.3. Difference between find and locate commands
 
+- `locate` use a prebuilt database, which should be regulary updated
+  - Faster but maybe inaccurate if database is not updated
+    - Use `updatedb` if you need to update the database
 
+- `find` iteratres over a filesystem to locate files
+  - How slow it will be will depends on how big of the filesystem it needs to iterates. 
+
+# 7. Wildcards
+
+Wildcard is a character that can be used as a substitute for any of a class of characters in a search
+
+\* (Asterisk) : represents 0 or more characters
+
+\? : represents a single character
+
+\[ \] : represent a range of characters. For searching only. Use `\{ \}`for creation.
+
+\\ : escape character
+
+\^ (caret) : the beginning of the line
+
+\$ : end of the line
+
+## 7.1. Special Note
+- For creation a list of files in sequence:
+  E.g. 
+  > abc1.txt
+  > abc2.txt
+  > abc3.txt
+
+  Instead of using \[ \], use braces instead.
+
+  > touch abc[1..3].txt
+
+# 8. Linux File Types
+
+| File Symbol | Meaning                |
+| ----------- | ---------------------- |
+| -           | Regular File           |
+| d           | Directory              |
+| l           | Link                   |
+| c           | Special or device file |
+| s           | socket <br><br> Used for network communication between processes                |
+| p           | Named Pipe <br><br> Also known as FIFO and used for interprocess communication. <br> Allows data to be pass to between processes in a `F`irst `I`n `F`irst `O` manner           |
+| b           | Block device <br><br> Represents devices that handle data in blocks such as USB or hard drives         |
+|             |                        |
+
+# Soft and Hard links
+
+- `inode` is a Pointer or number of a file on the hard disk
+  - Everytime a file is created, a number(inode) is generated to associate with the file.
+  - When a command or process requires to read a file, it will pass the number(inode) to the filesystem to ask it to retreive the file for them.
+  
+- `Softlink` is a link when created will be remove if the source file is removed or renamed
+
+- `Hardlink` is links the file to data blocks instead. So when deleting, moving or renaming the source file, it will not affect the link. 
+  - The link will only disappear when all the links are removed
+
+**You cannot create soft or hard link with the same name within the same directory.**
+
+Command to create link:
+- Hardlink
+    >ln [source_file_path]
+
+- Softlink
+  > ln -s [source_file_path]
+
+Command to check inode
+> ls -ltri
 
