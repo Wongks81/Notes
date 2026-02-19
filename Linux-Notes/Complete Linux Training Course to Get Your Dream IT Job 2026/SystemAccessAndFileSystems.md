@@ -17,7 +17,7 @@
 - [7. Wildcards](#7-wildcards)
   - [7.1. Special Note](#71-special-note)
 - [8. Linux File Types](#8-linux-file-types)
-- [Soft and Hard links](#soft-and-hard-links)
+- [9. Soft and Hard links](#9-soft-and-hard-links)
 
 # 1. Important Things to Remember in Linux
 
@@ -214,7 +214,7 @@ Wildcard is a character that can be used as a substitute for any of a class of c
 | b           | Block device <br><br> Represents devices that handle data in blocks such as USB or hard drives         |
 |             |                        |
 
-# Soft and Hard links
+# 9. Soft and Hard links
 
 - `inode` is a Pointer or number of a file on the hard disk
   - Everytime a file is created, a number(inode) is generated to associate with the file.
