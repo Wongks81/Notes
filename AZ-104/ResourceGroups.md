@@ -14,3 +14,11 @@
   - 2. Easy deprovisioning, just by deleteing the resource group you can delete all at once.
   - 3. Security Boundary by utilizing RBAC
   - 4. Easy to apply policies.
+
+Resource Locks
+- Mchanism for locking down resources to ensure an extra layer of protection before they can be deleted
+  
+- 2 options for lock:
+  - CanNotDelete: Authorized users can read and modify but not delete the resource
+  
+  - ReadOnly: Authorized users can read the resource but cannot update or delete
