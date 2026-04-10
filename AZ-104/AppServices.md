@@ -94,3 +94,129 @@ Azure App Services consist of the following:
 - Created in a subnet of a VNet, which achieves isolation
 
 - Note: May take a few hours to spin up.
+
+---
+
+<h4>Management Tools</h4>
+
+- Azure Management Portal
+- Kudu (System Control Manager)
+- Visual Studio
+- Powershell
+- CLI
+
+<h4>App Service Plan Metrics</h4>
+
+| Component         | Description                                                                                                                                                                                     |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CPU Percentage    | Average CPU used across all instances of the plan                                                                                                                                               |
+| Memory Percentage | Average memory used across all instance of the plan                                                                                                                                             |
+| Data In           | Average incoming bandwidth used across all instances of the plan                                                                                                                                |
+| Data Out          | Average outgoing bandwidth used across all instances of the plan                                                                                                                                |
+| Disk Queue Length | Average number of both read and write requests that were queued on storage <br><br> High disk queue length is an indication that an application might be slowing down due to excessive disk I/O |
+| HTTP Queue Length | Average number of HTTP requests that had to sit on the queue before being fulfilled <br><br>HIgh or increasing HTTP Queue length is a symption of plan under heavy load  |
+
+---
+
+<h4>Free and Shared App Quotas</h4>
+
+| Component   | Description                                                                                                                 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------- |
+| CPU (Short) | Amount of CPU allowed for this application in a 5 minute interval<br><br>Quota resets every 5 minutes                       |
+| CPU (Day)   | Total amount of CPU allowed for this application in a day<br><br>Quota resets every 24 hrs at midnight UTC                  |
+| Memory      | Total memory allowed for this application                                                                                   |
+| Bandwidth   | Total amount of outgoing bandwidth allowed for this application in a day<br><br>Quota resets every 24 hours at midnight UTC |
+| Filesystem  | Total amount of storage allowed |
+
+---
+
+<h4>Results of exceeding Quotas</h4>
+
+| Component   | Description                                                                                                                                                                           |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| CPU         | Exceeding either CPU (short) or CPU (day) will result in the application being stopped until the quota resets.<br><br>During this time, all incoming requests will results in HTTP403 |
+| Memory      | The Application is restarted                                                                                                                                                          |
+| Bandwidth   | Application is stopped until the quota resets<br><br> During this time, all incoming requests will results in HTTP403                                                                 |
+| Filesystems | Write operation including writes to logs will fail |
+
+---
+
+<h4>Azure Web Appl Diagnostic Logs</h4>
+
+- Application Logs
+  - Errror
+  - Warning
+  - Information
+  - Verbose
+
+- Web Server Logs
+  - Web Server Logging
+    - Information about HTTP Transactions
+    - E.g. 
+      - How many request from a specific IP
+      - Number of requests handled
+
+  - Detailed Error Message
+    - Detailed error information for HTTP status codes that indicate failure
+
+  - Failed request tracing
+    - Detailed information on failed requests
+    - Including the trace of IIS components that were used to process the request
+
+---
+
+<h4>Diagnostic Logs and Locations </h4>
+
+| Type                  | Location - /LogFiles/ |
+| --------------------- | --------------------- |
+| Application Logs      | Application/          |
+| Failed Request Traces | W3SVC#########/<br><b>*The # are numbers</b>       |
+| Detailed Error Logs   | DetailedErrors/       |
+| Web Server Logs       | http/RawLogs          |
+| Deployment Logs       | /Git |
+
+---
+
+<h4>Deployment Slots</h4>
+
+- Mainly used for testing changes as it is running live before changing it to production
+
+- Allows you to deploy in non-produdction slots
+
+- Applies to Web Apps on Windows and Linux, API and Mobile Apps
+
+- Reduces risk and increases speed
+
+- Apps deployed in the staging slots are live running applications
+
+- Staging slot can seamlessly be swapped to and fro production and staging
+
+<h4>Swapped vs Non Swapped Settings</h4>
+
+- Swapped
+  - General settings:
+    - framework version
+    - 32/64 bits
+    - web sockets
+
+  - App settings
+    - Can be configured to stick to a slot
+
+  - Connection strings
+    - Can be configured to stick to a slot
+    - Like the staging slot can be connected to dummy data instead of production
+
+  - Handler Mappings
+
+  - Monitoring and diagnostic settings
+
+  - Webjobs content
+
+- Not Swapped
+  - Publishing endpoints
+    - URLs and credentials used to deploy apps
+
+  - Custom Domain names
+  - SSL certs and binding
+  - Scales
+  - WebJobs Schedulers
