@@ -56,7 +56,7 @@ Signed permissions
 
 ---
 
-<h4>Custome Domain</h4>
+<h4>Custom Domain</h4>
 
 - You can map custom domain name to your storage instead of using the default URL provided by Microsoft
 
