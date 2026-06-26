@@ -22,8 +22,11 @@
     - [2.2.6 FIDO2 (Fast IDentity Online 2) / Passkeys](#226-fido2-fast-identity-online-2--passkeys)
 - [2.3 Where to configure Authentication Methods](#23-where-to-configure-authentication-methods)
 - [2.4 Creating Users](#24-creating-users)
-  - [2.4.1 Internal Users](#241-internal-users)
-  - [2.4.2 External Users](#242-external-users)
+  - [2.4.1 Create Internal Users](#241-create-internal-users)
+- [2.5 Understanding Threat Protection and Threat Intelligence](#25-understanding-threat-protection-and-threat-intelligence)
+  - [2.5.1 Threat Protection](#251-threat-protection)
+  - [2.5.2 M365 Threat Protection Stack](#252-m365-threat-protection-stack)
+  - [2.5.3 Threat Intelligence](#253-threat-intelligence)
 
 
 
@@ -363,7 +366,7 @@
 ![](images/2026-06-26-13-03-39.png)
 
 ## 2.4 Creating Users
-### 2.4.1 Internal Users
+### 2.4.1 Create Internal Users
 
 - There are a couple of ways to create users in Azure
 
@@ -384,5 +387,72 @@
 | Requires synchronization?                              | No                         | No                                       | Yes, if users need to access Microsoft 365 using the same identity                                                 |
 | Password managed in                                    | Cloud                      | Cloud                                    | On-premises AD (unless cloud password features are configured)                                                     |
 
-### 2.4.2 External Users
+## 2.5 Understanding Threat Protection and Threat Intelligence
 
+### 2.5.1 Threat Protection
+
+- Refers to Microsoft tools and services that detect, block and respond to cyber threats targeting users, devices, identities, email and cloud apps
+
+- Goal of Threat Protection is to prevent attacks, detect suspicious activity and automate response actions before damage occurs
+
+### 2.5.2 M365 Threat Protection Stack
+
+- Microsoft Defender XDR 
+  - Unified portal for threat detection, investigation and response across endpoints, email, identities and apps
+
+- Microsoft Defender for Endpoint
+  - Protect devices with antivirtus, EDR, attack surface reduction and vulnerability management
+
+- Microsoft Defender for Office 365
+  - Protects email and collaboration tools from phishing, malware and malicious links
+
+- Microsoft Defender for Identity
+  - Analyzes identity based threats using signals from domain controllers
+
+- Microsoft Defender for Cloud Apps (formaerly MCSA)
+  - Monitors clooud app usage, detect risky behavior and enforces controls
+
+- All of the above are fed into Defender XDR for unified visibility
+
+![](images/2026-06-27-06-17-50.png)
+
+### 2.5.3 Threat Intelligence
+
+- Threat Intelligence provides real time awareness of emerging cyber threats
+
+- Helps organizations understand attacker tactics, malware families, phishing campaigns and indicators of compromise (IOCs)
+
+- Microsoft collects intelligence from trillions of signals from all its platforms and global threat sensors.
+
+![](images/2026-06-27-06-18-10.png)
+
+- Threat intel includes
+  - IOCs (Malicious IPs, URLs, file hashes)
+  - IOAs (behaviors that indicate an attack technique)
+  - Threat actor profiles
+  - Attack campaigns and patterns
+
+  > These indicators drive automated protection across Defender products
+
+- Automated Investigation & Response (AIR)
+  - Microsoft Defender can automatically
+    - Isolate devices
+    - Quarantine malicious emails
+    - Block harmful URLs
+    - Disable compromised accounts
+  
+  - These reduces the workload on security administrators
+
+- Proactive Security Tools
+  - Secure Score
+    - Provides recommendations to strengthen the organization security posture
+  - Attack Simulation Training
+    - Creates phishing simulations to educate users and reduce human risk
+  - Vulnerability Management
+    - Identifies misconfigurations and weak points before attackers exploit them
+
+- Threat Analytics Dashboards
+  - Provide insigts into major global threats and whether the organization is impacted
+  - Explain how the attack works and steps to mitigate risk
+
+![](images/2026-06-27-06-25-27.png)
