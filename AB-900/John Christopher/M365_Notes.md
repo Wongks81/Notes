@@ -27,6 +27,15 @@
   - [2.5.1 Threat Protection](#251-threat-protection)
   - [2.5.2 M365 Threat Protection Stack](#252-m365-threat-protection-stack)
   - [2.5.3 Threat Intelligence](#253-threat-intelligence)
+- [3.1 Core Security Features of M365 services](#31-core-security-features-of-m365-services)
+  - [3.1.1 Conditional Access](#311-conditional-access)
+  - [3.1.2 Signal Examples](#312-signal-examples)
+  - [3.1.3 Single Sign On (SSO)](#313-single-sign-on-sso)
+  - [3.1.4 Multi Factor Authentication (MFA)](#314-multi-factor-authentication-mfa)
+    - [3.1.4.1 what Licenses Do you need for MFA](#3141-what-licenses-do-you-need-for-mfa)
+  - [3.1.5 Role Based Access Control (RBAC)](#315-role-based-access-control-rbac)
+    - [3.1.5.1 Azure RBAC Roles](#3151-azure-rbac-roles)
+    - [3.1.5.2 Microsoft 365 \& Entra ID Roles](#3152-microsoft-365--entra-id-roles)
 
 
 
@@ -456,3 +465,193 @@
   - Explain how the attack works and steps to mitigate risk
 
 ![](images/2026-06-27-06-25-27.png)
+
+## 3.1 Core Security Features of M365 services
+
+### 3.1.1 Conditional Access
+
+- Conditional Access is a tool in Azure that brings signals together for access decision making
+
+- Signals help in decision making on whether to allow access or enforce certain policies
+
+  ![](images/2026-06-28-04-07-27.png)
+
+- Conditional Access takes signals from various sources into account when making access decisions
+
+  ![](images/2026-06-28-04-11-21.png)
+
+### 3.1.2 Signal Examples
+
+- User or group membership
+  - Policies can be targeted to specific users and groups giving administrators fine grained control over access
+
+- IP Location information
+  - Organizations can create trusted IP address ranges that can be used when making policy decisions
+
+  - Administrators can specify entire countries/regions IP ranges to block or allow traffic from
+
+- Device
+  - Users with devices of specific platforms or marked with a specific state can be used when enforcing Conditional Access Policies
+
+  - Use filters for devices to target policies to specific devices like privileged access workstations
+
+- Applications
+  - Users attempting to access specific applications can trigger different Conditional Access policies
+
+- Real time and calculated risk detection
+  - Signals integration with Microsoft Entra ID Protection allows Conditional Access policies to identify and remediate risky users and sign in behavior
+
+- Microsoft Defender for Cloud Apps
+  - Enables user application access and sessions to be monitored and controlled in real time.
+
+  - This integration increases visibility and control over access to and activities done within you cloud environment
+
+### 3.1.3 Single Sign On (SSO)
+
+- SSO allows a user to sign in once and access multiple apps and services without having to reenter their password
+
+- Managed through identity providers like Microsoft Entra ID, which issues and validates the sign in token
+
+- Works across M365, Azure apps, SaaS apps and on premise apps integrated through SSO
+
+- Purpose of SSO
+
+    - Simplify aythentication for users by eliminating repeated sign ins
+
+    - Centralize identity management in one place (Entra ID)
+
+    - Improve security by reducing password fatigue and encouraging stronger security controls like MFA
+
+    - Enable seamless productivity across cloud and on prem apps
+
+- Security Benefits
+  
+  - Reduced password fatigue
+    - Users aren't tempted to reuse simple password everywhere
+
+  - Fewer login prompts
+    - Lowers risk of phishing
+
+  - Centralized access control
+    - Admins can block access instantly by disabling the user account
+
+  - Strong authentication enforcement
+    - MFA, Conditional Access and passwordless sign ins apply consistently across all apps
+
+- Operational Benefits
+
+  - Better user experience
+    - One login give access to multiple apps and services
+
+  - Fewer helpdesk calls related to password resets or login troubles
+
+  - Fast onboarding / offboarding
+    - Access is automatically granted or removed based on Entra ID
+  
+  - Consistent policies across all connected apps
+
+  ![](images/2026-06-29-05-19-23.png)
+
+- How SSO Works at a High Level
+
+  1. User authenticates once with Entra ID
+  2. Entra ID issues a token that proves the user's identity
+  3. Apps trust Entra ID so no additional password is required
+  4. When token expires, Entra can silently reissue a new one without user interaction
+
+### 3.1.4 Multi Factor Authentication (MFA)
+
+- MFA requires 2 or more verification factors to access a account
+
+- Factors include:
+  - Something you know (password)
+  - Something you have (Phone, Security Key)
+  - Something you are (Biometrics)
+
+- Reduces the risk of unauthorized access even if a password is compromised
+
+- MFA is critical because :
+  - Over 99% of identity based attacks can be blocked with MFA
+  - Common threats it mitigates
+    - Phishing
+      - Tricking users into revealing credentials through fake websites or emails
+
+      - Password Spraying
+        - Trying common passwords across manay accounts
+
+      - Credential Stuffing
+        - Using stolen username / password pairs from other breaches
+
+  - Required for compliance (e.g. GDPR, HIPAA, NIST)
+
+#### 3.1.4.1 what Licenses Do you need for MFA
+
+| Feature                   | License Required                        | Notes                                                                                |
+| ------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------ |
+| Security Default          | Free                                    | Tenant wide enforcement with limited customization. <br> Authenticator app requried. |
+| Conditional Access MFA    | Entra ID P1 (or inlcuded in M365 E3/E5) | Enables targeted MFA enforcement using conditions like user risk, location or app    |
+| Risk based / Adaptive MFA | Entra ID P2 (or included in M365 E5)    | Uses real time risk detection to challenge users only when necessary |
+
+### 3.1.5 Role Based Access Control (RBAC)
+
+- Roles
+  - Define what users can do within Microsoft services
+  - Based on the principle of least privilege
+  - Used in Azure, M365 amd Entra ID to control access
+
+  ![](images/2026-06-29-08-19-33.png)
+
+#### 3.1.5.1 Azure RBAC Roles
+
+- Azure RBAC roles are role based access control permissions that manage who can access Azure resources
+  - What they can do and what is the scope that they can do
+    - Management group
+    - Subscription
+    - Resource group
+    - etc
+
+- Key Role Type
+  - Owner
+    - Full Access including assigning roles
+
+  - Contributor
+    - Create and manage resources
+    - Does not include RBAC management
+
+  - Reader
+    - View only access to resources
+
+  - Custom
+    - User defined specific permissions
+
+- Scope levels :
+  - Management Group > Subscription > Resource Group > Resource
+
+#### 3.1.5.2 Microsoft 365 & Entra ID Roles
+
+- Entra ID Roles are predefined sets of permissions that control access to identity and directory resources acroos M365 and Azure environments
+
+  - Common Examples:
+    - Global Administrator
+      - Full control across Entra ID
+
+    - User Administrator
+      - Manage Users and Groups
+
+- Microsoft 365 roles are built in administrative roles that grant users specific permissions to manage services in the MS Office groups of applications.
+
+  - Key Built in Roles
+    - Global Admin
+      - Full Access
+
+    - Exchange admin
+      - Manage milboxes, transport rules
+
+    - Sharepoint Admin
+      - Site collections and settings
+
+- Best Practices
+  - Assign roles to groups, not individuals
+  - Follow least privilege
+  - Reguarly review role assignments
+
