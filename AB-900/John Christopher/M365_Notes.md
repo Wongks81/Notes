@@ -36,6 +36,49 @@
   - [3.1.5 Role Based Access Control (RBAC)](#315-role-based-access-control-rbac)
     - [3.1.5.1 Azure RBAC Roles](#3151-azure-rbac-roles)
     - [3.1.5.2 Microsoft 365 \& Entra ID Roles](#3152-microsoft-365--entra-id-roles)
+  - [3.1.6 Role of Privileged Identity Management (PIM)](#316-role-of-privileged-identity-management-pim)
+  - [3.1.7 Understanding App Registration and Enterprise Apps](#317-understanding-app-registration-and-enterprise-apps)
+- [4. Understanding Microsoft Purview](#4-understanding-microsoft-purview)
+  - [4.1 Identifying Sensitive Information](#41-identifying-sensitive-information)
+  - [4.2 Data Sensitivity Levels](#42-data-sensitivity-levels)
+  - [4.3 Legal and Regulatory Compliance](#43-legal-and-regulatory-compliance)
+  - [4.4 Data Governance and Management Policies](#44-data-governance-and-management-policies)
+  - [4.5 Assessment and RIs Management](#45-assessment-and-ris-management)
+  - [4.6 Tools and Techniques for Identifying Sensitive Data](#46-tools-and-techniques-for-identifying-sensitive-data)
+    - [4.6.1 Data Loss Prevention (DLP)](#461-data-loss-prevention-dlp)
+    - [4.6.2 Communication Compliance](#462-communication-compliance)
+    - [4.6.3 Insider Risk Management](#463-insider-risk-management)
+  - [4.7 Microsoft Purview Data Security Posture Managemnt (DSPM) for AI](#47-microsoft-purview-data-security-posture-managemnt-dspm-for-ai)
+  - [4.8 Sensitivity Labels](#48-sensitivity-labels)
+    - [4.8.1 What Sensitivity Labels can do](#481-what-sensitivity-labels-can-do)
+  - [4.9 Retention](#49-retention)
+    - [4.9.1 How retention settings work](#491-how-retention-settings-work)
+    - [4.9.2 Retention Policy VS Retention Labels](#492-retention-policy-vs-retention-labels)
+    - [4.9.3 Retention labels and policies that apply them](#493-retention-labels-and-policies-that-apply-them)
+  - [4.10 Disposition Reviews](#410-disposition-reviews)
+- [5. Understanding data security implications of Copilot](#5-understanding-data-security-implications-of-copilot)
+  - [5.1 What is Microsoft 365 Copilot?](#51-what-is-microsoft-365-copilot)
+    - [5.1 How Copilot uses and protects your data](#51-how-copilot-uses-and-protects-your-data)
+  - [5.2 Data Storage, Privacy and User Controls](#52-data-storage-privacy-and-user-controls)
+  - [5.3 Extensibility and Third Party Data](#53-extensibility-and-third-party-data)
+  - [5.4 Safety, Compliance and Responsible AI](#54-safety-compliance-and-responsible-ai)
+  - [5.5 How Microsoft Graph Influences Copilot responses](#55-how-microsoft-graph-influences-copilot-responses)
+  - [5.6 Understand responsible AI principles](#56-understand-responsible-ai-principles)
+    - [5.6.1 Identify](#561-identify)
+    - [5.6.2 Measure](#562-measure)
+    - [5.6.3 Mitigate](#563-mitigate)
+    - [5.6.4 Operate](#564-operate)
+- [6. Identify data protection and governance risk for M365 and Copilot](#6-identify-data-protection-and-governance-risk-for-m365-and-copilot)
+  - [6.1 Identify compliance risks \& recommendations by using Purview Compliance Manager](#61-identify-compliance-risks--recommendations-by-using-purview-compliance-manager)
+  - [6.2 Identify Sensitive Information by using MIcrosoft Purview Data Explorer](#62-identify-sensitive-information-by-using-microsoft-purview-data-explorer)
+  - [6.3 Identify Risks by using Insider Risk Management](#63-identify-risks-by-using-insider-risk-management)
+    - [6.3.1 Principles of Insider Risk Management](#631-principles-of-insider-risk-management)
+    - [6.3.2 Insider Risk Workflow](#632-insider-risk-workflow)
+    - [6.3.3 Insider Risk Policies](#633-insider-risk-policies)
+    - [6.3.4 Alerts](#634-alerts)
+    - [6.3.5 Triage](#635-triage)
+    - [6.3.6 Investigate](#636-investigate)
+    - [6.3.7 Action](#637-action)
 
 
 
@@ -62,6 +105,7 @@
     ![](images/2026-06-25-07-28-56.png)
 
 - We can setup a Domain Name for the subscription by going to the Domain section under settings
+
 - But for the domain name to be recognized, we need to first buy the domain name from a domain name provider like GoDaddy.
     - You can also buy the domain name directly in this page
 
@@ -655,3 +699,587 @@
   - Follow least privilege
   - Reguarly review role assignments
 
+### 3.1.6 Role of Privileged Identity Management (PIM)
+
+- PIM is a technology that allows you to manage, control and monitor access to resources in your organization.
+
+- Simple example: PIM is equalivant to a temp pass for <b>a period of time</b> to access resources in organization
+
+- License that you will need to have PIM
+  - Microsoft Entra ID P2
+  - Microsoft ENtra ID Governance
+  - Other licenses that include the scope of either the one above
+
+- Key Features of PIM
+  - Setup just in time privileged access to Entra ID and Azure reources
+  - Create time nound access to resources using start and end dates
+  - Enforce approval to activate privileged roles
+  - Enforce multi-factor authentication to activate a role
+  - Utlilize justification to understand why users activate
+  - Receive notifications when privileged roles are activated
+  - Conduct access reviews to ensure users still need roles
+  - Download audit history for internal or external audit
+
+- Roles required for managing PIM
+  - Only user who have Privileged role Administratot or Global administrator can manage assignements for other administrators
+
+### 3.1.7 Understanding App Registration and Enterprise Apps
+
+- App Registration
+  - How you register the app to Entra ID so that it can use its identiy and authentication services for logging into the app.
+
+<br>
+
+## 4. Understanding Microsoft Purview
+
+- Purview control center
+  - https://purview.microsoft.com
+
+### 4.1 Identifying Sensitive Information
+
+- Types of Sensitive Information
+  
+  - Personal Identifiable Information (PII)
+    - Names, Addresses, Phone numbers etc...
+
+  - Financial Data
+    - Credit card numbers, bank account details etc...
+
+  - Health Information
+    - Health records, insurance policies
+
+  - Intellectual Property
+    - Trade secrets, proprietary business information
+    - Software Source code, business data
+
+  - Classified Government Data
+    - Sensitive data that must be protected according to government regulations
+
+  - Confidential Business Information
+    - Corporate strategies, business operations
+
+### 4.2 Data Sensitivity Levels
+
+- Public 
+  - Can be freely shared with the public
+
+- Internal
+  - Intended for internal use only
+  - Access should be limited to employees within the organization
+
+- Confidential
+  - Requires protection from unauthorized access
+
+- High Condifidential / Restricted
+  - Data that, if disclosed, could cause significant harm to the organization
+
+### 4.3 Legal and Regulatory Compliance
+
+- Each country has its own Compliance that it need to adhere so search the internet for it.
+
+### 4.4 Data Governance and Management Policies
+
+- Data Classification Policies
+  - Defining how data is classified and who has access to each classification level
+
+- Retention Policies
+  - Defining how long different types of data should be kept and when they should be deleted
+
+- Incident Response Plan
+  - A policy to respond to incidents of data breaches or leaks of sensitive information
+
+### 4.5 Assessment and RIs Management
+
+- Risk Assessments
+  - Regularly performing risk assessments to identify vulnerabilities related to sensitive data
+
+- Threat Modeling
+  - Identifying potential threats to sensitive data and implementing security measures to mitigate these risks
+
+### 4.6 Tools and Techniques for Identifying Sensitive Data
+
+- Data Classification
+  - Labeling data based on its level of sensitivity
+
+- Data Loss Prevention
+  - Technologies that help detect, monitor and protect sensitive information from being leaked or accessed by unauthorized individuals
+
+- Encryption
+  - Use of encryption to protect sensitive data both at rest and in transit
+
+- Access Control
+  - Settng strict permissions and monitoring access to sensitive data
+
+#### 4.6.1 Data Loss Prevention (DLP)
+
+- What DLP does:
+  - DLP identifies and monitors sensitive information like :
+    - Credit card
+    - Identification numbers
+
+  - across objects like :
+    - Emails in Exchange
+    - Files and folders in SharePoint or OneDrive
+    - Chat and files in Teams
+    - Devices onboarded using endpoint DLP
+
+- Design Use Cases for DLP
+  - Regulatory Compliance Use Cases
+
+    - Prevent exposure of Credit Card Numbers
+
+    - Safeguard Identification Numbers
+
+  - Internal Corporate Policy Cases
+
+    - Prevent accidental Sharing of financial reports
+
+    - Restrict upload of sensitive data to personal cloud storage
+
+  - Geographic or Business Units Use Cases
+
+    - Block sensitive data sharing from region to region
+
+    - Apply stricter policies to HR and Legal departments
+      - Ensure only authorized users can access and share contracts or employee records
+
+  - Device and Endpoint Use Cases
+    
+    - Block copying of sensitive files to USB drives
+    
+    - Prevent printing of condifential content
+
+    - Detect Screen capture attempts
+
+  - Communication Oversight Use Cases
+
+    - Stop external sharing of NDA protected content
+
+    - Alert users before sending sensitive data
+
+  - Custom or Industry Specific Use cases
+
+    - Protect schematics or CAD files
+     
+    - Detect interal leaks of source code
+
+#### 4.6.2 Communication Compliance
+
+- Purpose is to detect and manage policy violations in communications applications
+
+  - E.g. Teams, Email etc...
+
+- Use Cases
+  
+  - Harassment and Bullying Detection
+  - Offensive Language or Discrimination
+  - Sharing of Confidential or Sensitive Info
+  - Regulatory Compliance Monitoring
+  - Externaal Communications Monitoring
+  - Inappropriate Images or Files
+
+  ![](images/2026-07-02-10-20-27.png)![](images/2026-07-02-10-20-27.png)
+
+#### 4.6.3 Insider Risk Management
+
+- Purpose Detect and mitigate risky user behavior based on activity signals across M365 and endpoints
+
+- Use Cases
+
+  - Data Theft During Offboarding
+  - Unusual File Sharing or Uploads
+  - Policy Violations
+    - Alert when users send sensitive content to personal email or non compliant locations
+  - Security Incident Follow up
+    - Monitor a user after being involved in a previous security violation
+  - Physical Security Breach Indicators
+  - Intellectual Property Protection
+
+  ![](images/2026-07-02-10-19-54.png)
+
+### 4.7 Microsoft Purview Data Security Posture Managemnt (DSPM) for AI
+
+- DSPM is a security solution that's designed tto help organization with accessing, managing and locking down their data to improve security posture
+
+  - First is data discovery
+    - Identifying sensitive data and content across storage, resources and service applications
+  
+  - Second is data risk assessments
+    - Assess risk
+    - Look for vulnerabilities
+    - Making sure encryption is enabled
+    - Correct permissions is allocated
+
+  - Thrid is compliance and governance
+    - Assist in maintaining compliance with industry regulations
+    - Helps visibility and monitoring 
+
+  - Last is policy enforcement
+    - Ensure policies are being applied
+    - Ensure policies are being maintained and potected
+
+- Microsoft Documentation Link
+  - Https://Learn.microsoft.com/en-us/security/security-for-ai/protect
+
+  ![](images/2026-07-02-10-27-48.png)
+
+### 4.8 Sensitivity Labels
+
+- Sensitivity Labels helps organizations identify and label sensitive information
+
+- Using rules and conditions, information can be automatically labeled and classifications can be applied
+
+- Users can also manually apply sensitivity labels to their documents or emails
+
+  ![](images/2026-07-02-12-05-07.png)
+
+#### 4.8.1 What Sensitivity Labels can do
+
+- Sensitivity Labels can be configured to 
+
+  - Encrypt emails and documents to prevent unauthorized people from accessing this data
+
+  - Mark the content by adding watermarks to documents , headers or footers to emails that have the label applied
+
+### 4.9 Retention
+
+- Purpose of Retention
+
+  - Enables organizations to proactively adhere to both industry standards and internal guidelines mandating the retention of certain information for set durations
+
+  - Diminish the risk associated with legal disputes or security incidents by allowing for permanenct removal of outdated content that is no longer necessaary to retain
+
+  - Assists organizaations in fostering efficient knowledge sharing and enhancing agility by ensuring employees have access to only the most current and pertinent information
+
+- Retention Actions include :
+  - Retain only
+    - Retain content forever for a specific period of time
+
+  - Delete only
+    - Permanently delete content after a specified period of time
+
+  - Retain and delete 
+    - Retain content for a specified period of time and then permanently delete it
+
+#### 4.9.1 How retention settings work
+
+- Content with retention settings generally stays at its initial place
+
+- Any modification or removal of content that are governed by the retention policy, the system automatically preserves a copy
+
+  - In SharePoint and OneDrive, preserved copy is kept in Preservation Hold library
+
+  - Within Exchange mailboxes, stored in Recoverable Items folder
+
+  - Content from teams and interactions using Copilot for M365, copy is kept in a concealed folder name <b>SubstrateHolds</b>, located within the Excahneg Recoverable Items folder as a subfolder.
+
+#### 4.9.2 Retention Policy VS Retention Labels
+
+- Use Retention Policy when you want to set uniform retention parameters for all content within a specific site or mailbox
+
+  - E.g. Maintaining all documents on a SharePoint Site for X years, use Retention Policy
+
+- Use Retention Label when you need to dictate retention settings for particular items such as folders, documents or emails.
+
+  - E.g. SharePoint site resources have different retention period like folder A need X years, folder B need Y years.
+  - Retention labels will be better for this.
+
+#### 4.9.3 Retention labels and policies that apply them
+
+- When you publish retention labels, they're included in a retention label policy.
+
+  - A single retention label can be included in multiple retention label policies
+
+  - Retention labe policies specify the locations to publish the retention labels
+
+    ![](images/2026-07-02-15-23-31.png)
+
+### 4.10 Disposition Reviews
+
+- When content reaches end of its retention period, User might want to review that content and confirm if it can be permanently deleted
+
+  - Instead of deleting the content, we can 
+    
+    - Suspend the deletion of relevant content for litigation or an audit
+
+    - Assign a different retention period to the content
+
+    - Move the content from tis existing location to archive
+
+## 5. Understanding data security implications of Copilot
+
+### 5.1 What is Microsoft 365 Copilot?
+
+ - An AI assistant built into M365 apps
+
+ - Uses Large Language Models (LLMs) connected to your organization data
+
+ - Retrieves context through Microsoft Graph
+
+ - Generates responses based only on information users already have permission to access
+
+ - Runs within Microsoft's secure M365 environment 
+    - <b>Not using public OpenAI services</b>
+
+#### 5.1 How Copilot uses and protects your data
+
+  - Data used includes prompts, retrieved content and Copilot reponses
+  
+  - No customer data is used to train foundation LLMs
+    - Your data is <b>not fed</b> to microsoft AI LLMs for training
+
+  - All interactions stay within M365 service boundary
+
+  - Content is encrypted at rest and in transit and respects exisitng M365 permissions
+
+  - Copilot only shows data you personally have access to (Identity based access control)
+
+  ![](images/2026-07-03-09-41-26.png)
+
+### 5.2 Data Storage, Privacy and User Controls
+
+- Copilot stores prompts and responses as a user's Copilot activity history
+
+- Admins can search, manage and apply retention via Microsoft Purview
+
+- Users can delete their Copilot activity history from My Account
+
+- Copilot respects sensitivity labels and encrypted content via Purview Information Protection.
+
+### 5.3 Extensibility and Third Party Data
+
+- Copiloy can use Third party tools via Microsoft Graph connectors and agent
+  - Third party tools like ServiceNow, SalesForce
+  - Microsoft graph acts like a bridge between third party system into your M365 environment
+
+- Only agents approved by admins and installed by users can be used
+
+- Agents receive only the data users already have permission to access
+
+- Admin center shows each agent's permissions + privacy terms before enabling
+
+- External data is only included when the user is authorized for it
+
+  ![](images/2026-07-03-09-50-29.png)
+
+### 5.4 Safety, Compliance and Responsible AI
+
+- Includes content filters for hate, violence, self-harm and secual content
+  - Copilot won't generate anything that are in the content filters.
+
+- Blocks workplace related inferences
+
+- Detects protected material and mitigates jailbreak / prompt-injection attacks
+
+- Built on Microsoft's privacy, security and compliance commitments
+
+  ![](images/2026-07-03-09-55-50.png)
+
+### 5.5 How Microsoft Graph Influences Copilot responses
+
+  ![](images/2026-07-03-10-21-59.png)
+
+- Microsoft Graph is a Unified API which connects all M365 data and services together
+
+- Allows M365 apps and Copilot to securely access data stored across your M365 environment
+
+- Copilot uses Microsoft Graph instead of approaching each app individually
+
+- Graph is the central gateway to connecting everything in your organization
+
+- Copilot uses graph to gather real time data from your organization
+  - Graph ensures that Copilot only have access to the data you have permissions to.
+
+- Copilot will then sends the data gathered to LLM for LLM to generate the final answer
+  - LLMs do not have direct access to your data, it only sees what copilot have sent it.
+
+- Because everything goes through Graph, Copilot reponses will be personalized based on the resources you have permission for access.
+
+### 5.6 Understand responsible AI principles
+
+- Several Azure OpenAI models are generative AI types that have capabilities liek content and code creation, summarization and search functions
+
+- There are heightened challenges in responsible AI encompassing issues like harmful content, manipulation, mimicking human behavior, privacy concerns and more.
+
+- Microsoft have broken its consideration into four stages
+
+  - Identify
+  - Measure
+  - Mitigate
+  - Operate
+
+#### 5.6.1 Identify
+
+- Initial phase of Responsible AI lifecycle is to identify potential harms associated with AI systems
+
+- Early Identification enhances mitigation effectiveness, especially when AI services are tailored to specific context
+
+- There are tools that helps with this, like impact assessments, iterative red team testing and stress testing with testers focusing on system vulnerabilities and risks
+
+- Crucial to pinpoint harms relevant to specific models and applications
+
+  - Factors like application context can also influence harm potential.
+    - E.g. AI summarizing doctors notes in healthcare results in inaccuracies
+
+  - Collaborative risk prioritization with experts and subseqquent red teaming help refine focumented list of harms, which can be continually updated based on evolving insights
+
+#### 5.6.2 Measure
+
+- Subsequent phase after identifying prioritized harms, methodical approach for measuring each harm and evaluating the AI system is crucial
+
+- Both manual and automated measurements are benficial
+
+  - Manual allows for focused progress chgecks on priority issues
+  - Automated facilitates broad scale evaluations and continuous monitoring for regressions
+
+- To Meansure potential harms, it is advised to manually produce inputs that might trigger the identified harms then evaluate these outputs using clearly deifned metrics
+
+- Metrics should account for the frequency and severity of any harmful output
+  
+- Measurement stage concludes with a clear harm benchmarking system and documented results which is refined continuously as the system evolves
+
+#### 5.6.3 Mitigate
+
+- Addressing harms posed by LLMs necessitates a cyclical, multi layered strategy that involves both testing and ongoing measurement
+
+- Crafting of a mitigation strategy is advised that integrates four layers of countermeasures for harms pinpointed in the preliminary phases. 
+
+  ![](images/2026-07-03-17-13-10.png)
+
+#### 5.6.4 Operate
+
+- Essential to define and execute a deployment and operational readiness strategy
+
+- Entails undergoing system reviews with stakeholders, establishing feedback collection mechanisms and formulating incident response and rollback plans
+
+- Key recommendations include 
+
+  - Collaborating with organizational compliance teams to understand required reviews.
+    - E.g. Legal, privacy security teams
+
+  - Adopting a phased delivery to manage risk
+
+  - Creating plans for rapid incident response and system rollbacks
+
+  - Taking prompt action against unforeseen harms and blocking misusers
+
+  - establishing effective user feedback channel and harnessing telemetry data  
+
+- Crucial to be aware of potential legal implications in your jurisdiction and to consult legal experts when in doubt
+  
+## 6. Identify data protection and governance risk for M365 and Copilot
+
+### 6.1 Identify compliance risks & recommendations by using Purview Compliance Manager
+
+- URL for purview :
+- https://purview.mircosoft.com
+
+![](images/2026-07-04-13-20-17.png)
+
+- Compliance manager
+- Built in tool to help organization measure, track and improve its compliance posture
+
+- Goal is to show your risk and help guide to fixing them
+
+- Key Improvement actions
+
+![](images/2026-07-04-13-24-25.png)
+
+- Actions not taken as listed, represents potential attacks from attackers or auditors to take advantage
+
+> Actions that have "Failed High Risk" in test status should be look at immediately and resolve if possible
+
+### 6.2 Identify Sensitive Information by using MIcrosoft Purview Data Explorer
+
+  ![](images/2026-07-04-13-31-50.png)
+
+- Data Explorer 
+  - Tells user about information that has been labeled as classified, sensitive 
+
+- Activity Explorer
+  - Checks the activities that users have performed
+
+### 6.3 Identify Risks by using Insider Risk Management
+
+- Insider Risk Management is a compliance solution that helps minimize internal risks by enabling you to detect, investigate and act on malicious activities in your organization
+
+- Insider risk policies allow you to define the types of risk to detect and identify in your organiation 
+
+- Risk analysts in your organiation can quickly take appropriate actions when they are detected
+  
+- Common Internal Risk
+  - Leaks of sensitive data and data spillage
+  - Confidentiality violations
+  - Intellectual property (IP) theft
+  - Fraud
+  - Insider trading
+  - Regulatory compliance violations
+
+#### 6.3.1 Principles of Insider Risk Management
+
+- Transparency
+  - Balance user privacy versus organiation risk with privacy by design architecture
+
+- Configurable
+  - Configurable policies based on industry geoggraphical and business groups
+
+- Integrated
+  - Integrated workflow across Microsoft Purview solutions
+
+- Actionable
+  - Provides insights to enable reviewer notifications, data investigations and user investigations
+
+#### 6.3.2 Insider Risk Workflow
+
+- Insider risk management workflow helps to identify, investigate and take cation to address internal risks
+
+  ![](images/2026-07-04-16-51-00.png)
+
+#### 6.3.3 Insider Risk Policies
+
+- Insider Risk Policies are created using pre-defined templates and policy conditions.
+
+- These conditions include 
+  - How risk indicators are used for alerts
+  - Who should the policy inform
+  - Which services are prioritized 
+  - Detection time period
+
+#### 6.3.4 Alerts
+
+- Alerts are automatically generated by risk indicators that match policy conditions
+
+- Alerts Dashboard enables a quick view of all alerts
+
+#### 6.3.5 Triage
+
+- Triage means assessing the issue can decide what we should do next.
+
+- Activities that need investigation automatically generate alerts 
+
+- Alerts are resolved either by opening a new case, assigning the alert to existing case or dismissing the alert.
+
+#### 6.3.6 Investigate
+
+- Selecting the case for investigation and review
+
+- Primary investigation tools are:
+  - User activity 
+    - User risk activity is automatically displayed in an interactive chart that plots activities over time
+
+  - Content Explorer 
+    - All data files and email messages associated with alert activities are automatically captured and displayed in the Content Explorer
+
+  - Case Notes
+    - Reviewers can provide notes for a case in Case Notes sections.
+
+#### 6.3.7 Action
+
+- In cases where serious actions are needed, we can share information to other teams via
+  - eDiscovery (Premium) 
+    - Provides an end to end workflow to preserve, collect, review, analyze and export content for investigations
+
+    - Allows legal teams to manage the entire legal hold notification workflow
+
+  - Office 365 API integration (preview) 
+    - Insider Risk management supports exporting alert information to security information and event management (SIEM) services via O365 Management APIs.

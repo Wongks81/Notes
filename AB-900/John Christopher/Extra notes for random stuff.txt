@@ -1,0 +1,17 @@
+- Copilot is an AI assistant built into m365 apps
+Uses LLMs connected to organization data and generates responses based only on information users already have permission to access
+
+- DNS is the phonebook of the internet
+Translate human friendly domain name into IP address
+
+Process is like 
+1. Users enters www.company.com in browser
+2. Computer checks local DNS cache for match
+3. If not cached, it will ask a DNS resolver
+4. DNS resolver will query DNS hierarchy for the DNS record containing the IP address of www.company.com
+
+
+- DNS Records
+A Record : Maps a domain name to IPv4 address
+CName 	 : Makes 1 domain name an alias of another
+MX	 : Specifies the mail server that receive email for the domain
