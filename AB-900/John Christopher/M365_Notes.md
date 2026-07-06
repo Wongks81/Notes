@@ -86,6 +86,10 @@
   - [8.3 Built In Capabilities of AI Agents](#83-built-in-capabilities-of-ai-agents)
   - [8.4 When to use Copilot](#84-when-to-use-copilot)
   - [8.5 When to use AI Agents](#85-when-to-use-ai-agents)
+  - [8.6 Identify Use Cases for Researcher, Analyst and custom agents](#86-identify-use-cases-for-researcher-analyst-and-custom-agents)
+    - [8.6.1 Researcher Agent](#861-researcher-agent)
+    - [8.6.2 Analyst Agent](#862-analyst-agent)
+    - [8.6.3 Custom Agents](#863-custom-agents)
 
 
 
@@ -1375,3 +1379,56 @@
   - Want to reduce manual workload and improve efficiency
   - Processes must run consistently and accurately at scale
   - Need a digital worker that can monitor, act and optimize
+
+### 8.6 Identify Use Cases for Researcher, Analyst and custom agents
+
+  - Microsoft Copilot can work through specialized agents, each designed for different types of tasks.
+
+    ![](images/2026-07-06-12-00-33.png)
+
+#### 8.6.1 Researcher Agent
+
+  - Researcher agent is designed to :
+    - Gather information
+    - Summarize content
+    - Help users explore topics efficiently
+    - Ideal when the goal is understanding or fact finding
+
+  - Common use case of Researcher Agent
+    - Topic research and summaries
+    - Market or industry research
+    - Policy or compliance review
+    - Learning and onboarding
+
+  > Think of Researcher agent as the "find and explain" assistant
+
+#### 8.6.2 Analyst Agent
+
+  - Analyst agent focuses on data interpretation, trend detection and generating insightzs
+
+  - Works with structured and unstructured data, especially data stored across Microsoft 365
+
+  - Common use for Analyst Agents
+    - Data analysis from Excel or lists
+    - Business performance insights
+    - Operational analysis
+    - Financial or sales reviews
+
+  > Think of Analyst agents as the "interpret, calculate and recommend" assistant
+
+#### 8.6.3 Custom Agents
+
+  - Custom agents are built in Copilot Studio
+  - Allows organization to tailor Copilot to their exact workflows
+  - Can take actions, connect to APIs, run automation and work with you buiness systems
+
+  - Common Use Cases for Custom Agents
+    - Process automation
+    - Customer service bots
+    - Internal workflow assistants
+    - Department specific copilots
+    - SharePoint or intranet copilots
+
+  > Think of Custom Agents as "your own AI employee" that can be trained to do tasks automatically.
+
+  
