@@ -79,6 +79,13 @@
     - [6.3.5 Triage](#635-triage)
     - [6.3.6 Investigate](#636-investigate)
     - [6.3.7 Action](#637-action)
+- [7. Identify and monitor oversharing in SharePoint in M365](#7-identify-and-monitor-oversharing-in-sharepoint-in-m365)
+- [8. Understand Features and capabilities of Copilot and agents](#8-understand-features-and-capabilities-of-copilot-and-agents)
+  - [8.1 Copilot VS AI Agent](#81-copilot-vs-ai-agent)
+  - [8.2 Built In Capabilities of Copilot](#82-built-in-capabilities-of-copilot)
+  - [8.3 Built In Capabilities of AI Agents](#83-built-in-capabilities-of-ai-agents)
+  - [8.4 When to use Copilot](#84-when-to-use-copilot)
+  - [8.5 When to use AI Agents](#85-when-to-use-ai-agents)
 
 
 
@@ -1283,3 +1290,88 @@
 
   - Office 365 API integration (preview) 
     - Insider Risk management supports exporting alert information to security information and event management (SIEM) services via O365 Management APIs.
+
+## 7. Identify and monitor oversharing in SharePoint in M365
+
+- To access SharePoint admin center, you can go to http://admin.microsoft.com and click on the SharePoint menu option on the left
+
+  ![](images/2026-07-05-12-59-23.png)
+
+- You can manage the Sharing settings by clicking on "Policies" > "Sharing"
+
+  ![](images/2026-07-05-13-00-26.png)
+
+- You can also manage Share settings of each particular sites
+
+  ![](images/2026-07-05-13-05-29.png)
+
+> When Site and Policy settings are in conflict, the most restrictive setting will take effect.
+
+## 8. Understand Features and capabilities of Copilot and agents
+
+### 8.1 Copilot VS AI Agent
+
+- What is Copilot
+  - An AI powered assistant you interact with directly
+  - Reactive nature that responds to your prompts and stays user controlled
+  - Supports you during task but does not run full autonomous workflows
+  - Something like an interface you collaborate with
+  - Provides assistance but does not fully automatte processes
+    - Something like your personal assistant
+
+- What is AI Agent
+  - Specialized or autonomous AI tool built to perform tasks or workflows
+  - Can act with minimal human input once configured
+  - Proactive nature that can take action, plan steps or run process independently
+  - Functions like a "worker" inside your systems
+  - Can monitor data, take action and update systems
+  - Ideal for repetitive, rule based, large volume or task that needs consistency / automation 
+    - Something like if there is an error in system, run a script to check and create ticket.
+
+> Think of agents as apps/tools while Copilot is the interface
+
+### 8.2 Built In Capabilities of Copilot
+
+- Generates contentt
+  - Drafts, summaries, emails, reports
+
+- Provides reasoning and insights base on data
+
+- Enchances productivity by accelerating everyday task
+
+- Always keeps the user in control of final decisions and actions
+
+  ![](images/2026-07-06-07-10-22.png)
+
+### 8.3 Built In Capabilities of AI Agents
+
+- Run Complete workflows end to end
+  - Data Retrieval > Analysis > Actions
+
+- Automate processes like ticketing, scheduling, notifications and updates
+
+- Make decisions using defined rules, goals and environmental inputs
+
+- Interact with systems, APIs, databases and enterprise apps
+
+- Adapt and improve over time using feedback and historical data
+
+  ![](images/2026-07-06-07-14-32.png)
+
+### 8.4 When to use Copilot
+
+- Use Copilot when :
+  - You want AI assistance not automation
+  - Task requires human judgment or contextual decision making
+  - Need creative help, brainstorming or analysis
+  - Want real time responses while you work
+  - Workflow changes frequently and needs human oversight
+
+### 8.5 When to use AI Agents
+
+- Use AI agents When :
+  - Task are repetitive, structured or high volume
+  - Need hands off automation across systems
+  - Want to reduce manual workload and improve efficiency
+  - Processes must run consistently and accurately at scale
+  - Need a digital worker that can monitor, act and optimize
