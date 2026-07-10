@@ -58,7 +58,7 @@
   - [4.10 Disposition Reviews](#410-disposition-reviews)
 - [5. Understanding data security implications of Copilot](#5-understanding-data-security-implications-of-copilot)
   - [5.1 What is Microsoft 365 Copilot?](#51-what-is-microsoft-365-copilot)
-    - [5.1 How Copilot uses and protects your data](#51-how-copilot-uses-and-protects-your-data)
+    - [5.1.1 How Copilot uses and protects your data](#511-how-copilot-uses-and-protects-your-data)
   - [5.2 Data Storage, Privacy and User Controls](#52-data-storage-privacy-and-user-controls)
   - [5.3 Extensibility and Third Party Data](#53-extensibility-and-third-party-data)
   - [5.4 Safety, Compliance and Responsible AI](#54-safety-compliance-and-responsible-ai)
@@ -739,7 +739,6 @@
 - App Registration
   - How you register the app to Entra ID so that it can use its identiy and authentication services for logging into the app.
 
-<br>
 
 ## 4. Understanding Microsoft Purview
 
@@ -1032,7 +1031,7 @@
  - Runs within Microsoft's secure M365 environment 
     - <b>Not using public OpenAI services</b>
 
-#### 5.1 How Copilot uses and protects your data
+#### 5.1.1 How Copilot uses and protects your data
 
   - Data used includes prompts, retrieved content and Copilot reponses
   
@@ -1430,6 +1429,4 @@
     - SharePoint or intranet copilots
 
   > Think of Custom Agents as "your own AI employee" that can be trained to do tasks automatically.
-
-
 
