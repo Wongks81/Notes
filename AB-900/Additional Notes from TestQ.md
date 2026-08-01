@@ -18,6 +18,8 @@ Additional Notes from Test Questions
    
     Helps organizations discover, classify and secure data flows in AI workloads to ensure compliance and promote responsible AI use.
 
+    It also hekos to evaluate Data risk assessments in SharePoint and OneDrive to identify potential oversharing risks and help administrators review and remediate exposures before enabling broader M365 Copilot access.
+
 7. Deep briefing pack is to run multi step research across internal content and the web to produce a sourced breifting
 
     Allows for the analysis of internaal slide decks, notes, email and other sources to create a structured report that can be resued in future updates
@@ -105,7 +107,7 @@ Additional Notes from Test Questions
 
     - Copilot Analytics offer insights into how Copilot is changing work patterns and measure business impact over time for executives
 
- - App registration define how an application integrates with Microsoft Entra ID, such as API permissions and authentication settings
+- App registration define how an application integrates with Microsoft Entra ID, such as API permissions and authentication settings
 
 - Enterprise apps represent the specific instances of those applications and manage access withing a particular tenant
 
@@ -136,3 +138,27 @@ Additional Notes from Test Questions
 - Purview unified audit log does not cover Entra ID specific activities such as changes to Entra roles or creation of enterprise applications
 
 - Defender Threat Intelligence is primarily used for understanding attacker infrastructure, campaigns and emerging vulnerabilities while blocking malicious attachments and real time URL rewriting in email that come from other Defender components.
+
+- <b>Site Owners</b> in SharePoint have full control limited to SharePoint site and do not extend their authority to the broader M365 Group resources
+
+    While <b>Owners</b> have full control over the entire M365 Group
+
+- Administrators can also manage (view or delete) M365 user's prompt, response and citations 
+
+- For retention policies that involves conflict, retention wins over deletion and when period are in conflict, longest period wins.
+
+- A useful rule of thumb is:
+
+    PIP (Sensitivity Labels) = Protect the file.
+
+    DLP = Control what users can do with the file.
+
+- To publish agents in Copilot Studio, administrator must create a M365 group containing Copilot admins and add that group to <b>Copilot Studio Authors</b> setting withing the Power Platform admin center Tenant Settings
+
+- Word, Excel and Powerpoint agents from the Tools menu and agent navigation pane needs Anthropic AI models in M365 admin center to work. 
+
+- M365 admin center assigns the Copilot licenses <b>NOT</b> Entra admin center.
+
+- Data access settings in Copilot Control System is used to configure which users and groups can access Copilot agents and their related data sources.
+
+- Microsoft Defender XDR capability is to correlate threat signals across mutiple domains

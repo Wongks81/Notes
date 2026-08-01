@@ -1,8 +1,9 @@
 - Copilot is an AI assistant built into m365 apps
 Uses LLMs connected to organization data and generates responses based only on information users already have permission to access
 
-- DNS is the phonebook of the internet
-Translate human friendly domain name into IP address
+- DNS is something like the address book devices and services in a domain and the internet
+Translate URLs into IP address
+Server that associate names and IP addresses
 
 Process is like 
 1. Users enters www.company.com in browser
