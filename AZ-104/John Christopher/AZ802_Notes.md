@@ -70,7 +70,11 @@
   - On-Premise AD with account sync using Azure AD Connect
   - Powershell and Azure CLI
 
+<<<<<<< HEAD
 ### 2.1.1 User Identities
+=======
+## 2.2 User Identities
+>>>>>>> 20f0109138e0a2be60b1b8feffa929e437e9189d
 
 - Human Users who access Microsoft services
 
@@ -81,7 +85,11 @@
   - External users invited through B2B collaboration
   - Identity is managed but granted limited access
 
+<<<<<<< HEAD
 ### 2.1.2 Service Principles
+=======
+## 2.3 Service Principles
+>>>>>>> 20f0109138e0a2be60b1b8feffa929e437e9189d
 
 - Represent application or services that need to authenticate and access resources
 - Automatically created when an app is registered in Entra ID
@@ -93,7 +101,11 @@
   - Automated permissions       : Facilitates permission assignments without human intervention
   - Secure Access               : Provides secure resource access without human interaction
 
+<<<<<<< HEAD
 ### 2.1.3 Managed Identities
+=======
+## 2.4 Managed Identities
+>>>>>>> 20f0109138e0a2be60b1b8feffa929e437e9189d
 
 - Special identities for Azure resources like VMs or Function Apps to access other Azure services securely
   > <b>Without Storing Credentials</b>
@@ -108,7 +120,11 @@
     - Standalone identity resuseable across multiple reources
     - E.g. Azure VM accessing a storage account using system assigned identity
 
+<<<<<<< HEAD
 ### 2.1.4 Difference between Service Principles and Managed Identities
+=======
+## 2.5. Difference between Service Principles and Managed Identities
+>>>>>>> 20f0109138e0a2be60b1b8feffa929e437e9189d
 
 - Service Principles are either created by user or registered by apps
   - Admins will managed the accounts like passwords and certificates
@@ -118,7 +134,11 @@
 - Managed Identities have no need to manage any secrets or credentials
   - Only work within Azure, not for 3rd party services
 
+<<<<<<< HEAD
 ### 2.1.5 Device Identities
+=======
+## 2.6 Device Identities
+>>>>>>> 20f0109138e0a2be60b1b8feffa929e437e9189d
 
 - Every Device that is joined to Entra ID gets an identity
 - It is used for :
@@ -131,6 +151,7 @@
   - Hybrid AD joined  : Devices are joined to on premises Active Directory
   - Entra ID registred: Devices are registered for BYOD
 
+<<<<<<< HEAD
 ## 2.2 Groups in Entra ID
 
 - Microsoft 365 Groups
@@ -232,3 +253,5 @@
   - The above command only allows access to users and groups, so to have access to other things go to this URL to check out 
   > https://learn.microsoft.com/en-us/graph/permissions-reference
 
+=======
+>>>>>>> 20f0109138e0a2be60b1b8feffa929e437e9189d
