@@ -253,5 +253,4 @@
   - The above command only allows access to users and groups, so to have access to other things go to this URL to check out 
   > https://learn.microsoft.com/en-us/graph/permissions-reference
 
-=======
->>>>>>> 20f0109138e0a2be60b1b8feffa929e437e9189d
+
