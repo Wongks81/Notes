@@ -254,3 +254,60 @@
   > https://learn.microsoft.com/en-us/graph/permissions-reference
 
 
+# 4. Manage Access to Azure resources
+
+## 4.1 Understanding Roles
+
+- Roles
+  - Roles define what users can do within Microsoft Services
+  - Roles are assigned based on the principle of least privilege
+  - Central to RBAC (Role Based Access Control)
+  - Used in Azure, M365 and Entra ID to control access
+  > E.g. User with User administrator role can reset passwords but not delete subscriptions
+
+![](images/2026-08-05-08-24-54.png)
+
+## 4.2 Azure RBAC Roles
+
+- RBAC roles are role based access control permissions that manage :
+  - who can access Azure resources
+  - what they can do at what scope
+
+- Scope levels
+  - Management Group > Subscription > Resource Group > Resource
+
+  ![](images/2026-08-05-13-33-46.png)
+
+- Key Role Types
+  - Owner       : Full access including assigning roles
+  - Contributor : Create and manage resources, no role assignment authority
+  - Reader      : View only access
+  - Custom      : User defined specific permissions
+
+## 4.3 Entra ID Roles
+
+- Entra ID roles are predefined sets of permissions that control access to identity and directory resources across M365 and Azure environments.
+
+- Some common Role Examples:
+  - Global Administrator    : Full control across Entra ID
+  - User Administrator      : Manage users and groups
+  - Security Administrator  : View or manage security settings
+
+## 4.4 Microsoft 365 Roles
+
+- M365 roles are built in administrative roles that grant users specific permissions to manage services like Exchange, SharePoint, Teams and compliance features with M365 exosystem.
+
+- Key built in Roles
+  - Global Admin      : Full access
+  - Exchange Admin    : Manage mailboxes, transport rules
+  - SharePoint Admin  : Site collections and settings
+  - Teams Admin       : Manage Teams policies and configuration
+  - Compliance Admin  : Access Purview features
+
+## 4.5. Principle of Least Priviledge
+
+- This principle is to give out the least amount of rights but still provides users the ability to do their job
+- There is a service called Priviledged Identity Management (PIM) and one part of the service is "Just in Time" (JIT) administration
+- With JIT, we can give out access for a time period just to do things that they needed to do for that period.
+  - E.g. User administrator is going on a holiday and ask Network administrator to help him with user management during this period. We can just give the Network Administrator the "User administrator" role for the period that he is on holiday.
+
