@@ -203,3 +203,66 @@
       
 ---
 
+<h2>Understanding Roles in Azure and Entra ID</h2>
+
+Roles
+- Roles define what users can do within Microsoft Services
+- Based on the principle of least privilege
+- Central to Role Based Access Control `(RBAC)`
+- Used in Azure, M365 and Entra ID to control Access
+
+Azure RBAC Roles
+- Role Based access control permissions that manage
+  - Who can access Azure resources
+  - What they can do
+  - What scope. Management, subscription, resource group or resource
+
+- Key Role Types:
+  - Owner       : Full access including assigning roles
+  - Contributor : Create and manage resources (Excluding RBAC)
+  - Reader      : View only access
+  - Custom Role : Define specific permissions
+
+- Scope Levels :
+  - Management Group > Subscription > Resource Group > Resource
+
+Entra ID Roles
+- Predefined sets of permissions that control access to identity and directory resources across M365 and Azure environments
+- Roles can be assigned to users, groups or service principles
+
+- Roles Examples :
+  - Global Administrator  : Full control across Entra ID
+  - User Administrator    : Manage users and groups
+  - Security Reader       : View security settings
+ 
+Microsoft 365 Roles
+- Built in administrative roles that grant users specific permissions to manage services and compliance features within the Microsoft 365 ecosystem
+
+- Key Built in Roles:
+  - Global Admin      : Full access
+  - Exchange Admin    : Manage Mailboxes, transport rules
+  - SharePoint Admin  : Site collections and settings
+  - Teams Admin       : Manage Teams policies and configuration
+  - Compliance Admin  : Access Purview features
+
+Principle of Least Privilege
+- Give out the least amount of rights, just enough to do their jobs
+  
+- Mixed with Privileged Identity Management `(PIM)`, we can achieve "Just In Time" `(JIT)` administration using roles.
+  
+- Example of JIT : IT admin is on leave for the next 2 weeks, give someone a role like User administrator, for that 2 weeks to cover for the IT admin.
+
+Summary 
+- Roles = Permissions
+- Entra ID is identity focused
+- Azure is Resource focused
+- M365 is App focused
+
+Best Practices
+- Assign roles to groups not individuals
+- Follow least privilege
+- Regularly review role assignments
+
+---
+
+
