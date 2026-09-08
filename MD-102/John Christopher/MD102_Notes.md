@@ -265,4 +265,69 @@ Best Practices
 
 ---
 
+<h2>Scope Tags</h2>
+
+- Scope Tags seeks out tags that are in the devices enrolled in intune
+- We can limit the amount of devices an admin can see by using scope tags.
+  - Example would be region tags, US can only see US devices, APAC can only see APAC devices.
+- We can also easily add devices to the scope tags by creating a group, e.g."US-DEVICE-GROUP", and assign the scope tag to the group instead of each individual devices
+
+![](images/2026-09-08-04-08-22.png)
+- Example on the above where we have 2 region device admins and 2 scope tags, US and UK
+- When for example, a US admin that is linked to "US-Devices" scope tag logs in, he can only see devices that are tagged with US-Devices
+
+![](images/2026-09-08-04-11-50.png)
+  1. Scope is created
+  2. Role Permissions is assigned to the scope
+  3. Add / Associate members to the scope
+  4. Objects that are tagged to the scope
+  5. Members can only work with those objects
+
+- Scope tags can be created under
+  - Intune Admin Center > Tenant administration > Roles > Scope tags
+    ![](images/2026-09-08-04-20-34.png)
+    ![](images/2026-09-08-04-23-40.png)
+
+- When creating roles and permissions, you can add scope tags.
+  ![](images/2026-09-08-04-32-37.png)
+
+- You can check if the devices are tagged with scope tags by looking at the properties of the device.
+  ![](images/2026-09-08-04-36-33.png)
+
+---
+
+<h2>Compliance Policies</h2>
+
+- Compliance policies help create rules and settings that users and devices must meet to be compliant
+- When Combined with Conditional Access, administrators can block users and devices that don't meet the rules.
+
+- When Compliance Policies `with` Conditional Access in place:
+  - If Device don't comply, they do not get access to organizational resources
+
+- When Compliance Policies `without` Conditional Access in place:
+  - If devices don't comply they don't get restricted but reports are generated for monitoring
+
+- Main criteria for Compliant settings::
+  - PIN or password configuration
+  - Device encryption
+  - Jailbroken or rooted device
+  - Email profile
+  - Minimum OS version
+  - Maximum OS version
+  - Windows health attestation
+
+- Outcome of Non-Compliance
+  - Remediated
+    - Device OS enforces compliance 
+    - E.g. User forced to set a PIN or update the OS
+
+  - Quarantined
+    - Device operating system doesn't enforce compliance. E.g. Android
+      - If conditional access policy applies to user, the device is blocked
+      - Company portal app notifies the user about any compliance problems
+
+
+
+
+  
 
