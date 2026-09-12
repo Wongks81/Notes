@@ -299,6 +299,7 @@ Best Practices
 <h2>Compliance Policies</h2>
 
 - Compliance policies help create rules and settings that users and devices must meet to be compliant
+- Can be applied to devices or users
 - When Combined with Conditional Access, administrators can block users and devices that don't meet the rules.
 
 - When Compliance Policies `with` Conditional Access in place:
@@ -326,8 +327,106 @@ Best Practices
       - If conditional access policy applies to user, the device is blocked
       - Company portal app notifies the user about any compliance problems
 
+---
 
+<h2>Conditional Access</h2>
 
+- Conditional Access can be found in 
+  - Azure > Entra ID > Security > Conditional Access
+  ![](images/2026-09-10-05-03-38.png)
 
+  - Entra portal > Protection > Conditional Access
+  ![](images/2026-09-10-05-06-31.png)
+
+- Conditional Access is a tool in Azure that brings signals together for access decision making
+
+- Signals help in decision making on whether to allow access or enforce certain policies
+
+- Common Signals that are used:
   
+  - Identities 
+    - Microsoft Entra ID 
+    - Microsoft Defender for Identity 
+
+  - Applications 
+    - Microsoft Defender for cloud
+
+  - Endpoints 
+    - Microsoft Defender
+    - Microsoft Endpoint Manager
+
+  - Data
+    - Microsoft Information Protection
+
+  - Infrastructure
+    - Microsoft Cloud App Security
+
+  - Network
+
+- Zero Trust Policy enforcement
+  - Every time a connection connects in, it should be checked and rechecked 
+
+  - Nothing is seen as trustworthy just because a user logged in 5 mins ago from the same device
+
+- Signals Example
+  - User or Group membership
+    - Policies can be targeted to specific users and groups giving administrators fine grained control over access
+
+  - IP Location information
+    - Organizations can create trusted IP address ranges that can be used when making policy decisions
+    - Administrators can specify entire countries / regions IP ranges to block or allow traffic from.
+
+- Device
+  - Users with devices of specific platforms or marked with a specific state
+    - E.g. Certain patches to cover major exploits are not patched for devices
+  
+- Application
+  - Users attempting to access specific applications can trigger different Conditional Access policies
+
+- Real time and calculated risk Detection
+  - Signals integration with Microsoft Entra ID Protection allows Conditional Access policies to identify and remediate risky users and sign in behavior
+
+- Microsoft Defender for Cloud Apps
+  - Enables user application access and sessions to be monitored and controlled in real time
+
+---
+
+<h2>Autopilot Deployment Profiles</h2>
+
+- Autopilot deployment profiles allows the organization to automate the setup and provisioning of Windows devices
+
+- Helps organization to predefine the Out Of Box Experience (OOBE)
+
+- Can automatically join deivces to Entra ID or Hybrid Environments 
+
+- Allows you to customize your naming conventions and cofigure user experiences during the setup
+
+- Allows organization to standadize device deployments
+
+- Allows organizations to deliver a consistent, secure and scalable deployment experience while reducing the time required to prepare these new devices.
+
+<br>
+<h2>Autopilot Device Preparation Polices</h2>
+
+- Newer Strategy trying to simplify the approach of deploying Windows devices through Microsoft Intune.
+
+- More for <b>cloud only based deployment</b>
+
+- Does not need hardware hashes or traditional Autopilot registration processes
+
+- Processes are streamlined for deployment for cloud native environments
+
+<br>
+<h2>Autopilot Deployment Profiles vs Device Preparation Policies</h2>
+
+- When to use Autopilot Deployment Profiles 
+  - Advanced deployment scenarios
+  - Hyrbrid join environments
+  - When pre-provisioning is required
+  - When on premise AD is invovled
+
+- When to use Device Preparation Policies
+  - For faster, cloud native deployments
+  - Deploying to devices that only joint to Entra ID. 
+  - When organization is cloud only, no physical hardware
 
