@@ -393,6 +393,12 @@ Best Practices
 
 <h2>Autopilot Deployment Profiles</h2>
 
+> To setup devices to be deployed via deployment profiles, we need to setup a security group with dynamic devices setting. <br><br> 
+> For the query to be entered, refer to https://learn.microsoft.com/en-us/autopilot/enrollment-autopilot for reads <br><br>
+> But for standard deployment will be `(device.devicePhysicalIDs -any (_ -startsWith "[ZTDid]"))`
+
+![](images/2026-09-13-09-51-42.png)
+
 - Autopilot deployment profiles allows the organization to automate the setup and provisioning of Windows devices
 
 - Helps organization to predefine the Out Of Box Experience (OOBE)
@@ -430,3 +436,116 @@ Best Practices
   - Deploying to devices that only joint to Entra ID. 
   - When organization is cloud only, no physical hardware
 
+---
+
+<h2>Choosing which Autopilot deployment modes</h2>
+
+1. User Driven Deployment Mode
+   - Designed for standard corporate devices that are assigned to a specific end user
+
+   - Process
+     - User unboxes the device
+     - Connects to network
+     - Enters corporate email
+     - Autopilot joins device to Entra or Hybrid AD and completes Intune enrollment
+
+    - User Experience
+      - Highly interactive
+      - User goes through the whole OOBE experience
+
+    - Primary User
+      - User who signs in become the primary user
+
+    - Best for
+      - Knowledge workers
+      - Remote employees
+      - Standard business laptops
+
+2. Pre-Provisioning Deployment Mode (White Glove)
+   - Splits the setup between IT (or OEM) and end user
+
+   - Process 
+     - IT Staff setup the device up to account creation page and trigger provisioning
+     - Device is sealed so when the user receives it and signs in, provisioning resumes and completes
+
+    - User Experience
+      - Minimal steps for end user
+      - They only sign in and skip most setup
+  
+    - Primary User
+      - The first user to sign in after provisioning becomes the primary user
+
+    - Best for
+      - Organizations that need to pre load apps, configurations or perform tasks before the device reaches the user
+
+3. Self-Deploying Deployment Mode
+   - Fully Automated setup with no user interaction during provisioning
+
+   - The Process
+     - Device powers on
+     - Connects to the internet
+     - Completes Autopilot setup automatically
+     - No user account is required during setup
+     - Device is ready for use immediately or at a shared kiosk
+
+    - User Experience
+      - No OOBE prompts
+      - Device goes directly to the desktop or assigned kiosk mode
+
+    - Primary User
+      - No Primary User is assigned
+
+    - Requirements
+      - Windows 11 with TPM 2.0 and automatic logon configuration
+
+    - Best for
+      - Shared devices
+      - Dedicated kiosks
+      - Digital signage
+      - Task workers
+
+  ![](images/2026-09-13-05-29-24.png)
+
+---
+
+<h2>Configuration Profiles</h2>
+
+- Microsoft Intune includes settings and features you can enable or disable on different devices within your organization
+
+- It is something like a cloud equivalent of a GPO and can affect other OS like android and Mac.
+
+- These settings and features are added to "Configuration Profiles"
+  - You can create profiles for different devices and different platforms
+
+  - Then use Intune to apply or assign the profiles to the devices
+
+- Usage examples of configuration profiles
+  - Allow or prevent access to bluetooth on the device
+  - Create a WIfi or VPN profile that gives different devices access to corporate network
+
+- Main Options when creating a Profile
+  - Device profiles allows you to add and configure settings and push these settings to devices in your organization
+
+  - Administrative templates
+    - On Windows devices, these templates are ADMX settings 
+
+  - Baselines
+    - There should be a baseline of configuration before the device should be used in the environment
+
+    - Baselines include preconfigured security settings on Windows devices.
+
+  - Settings catalog
+    - Catalog to see all the available settings in one location
+
+  - Templates
+    - Predefined groups of alot of settings
+
+    - Include a logical grouping of settings that configure a feature or concept
+    ![](images/2026-09-14-05-41-04.png)
+
+  - Properties Catalog
+    - <b>Not for changing configuration</b>
+    - It is mainly used for gathering data for inventory and reports.
+    ![](images/2026-09-14-05-39-59.png)
+
+> If there is a conflict between configuration profiles and Group policies, Group policies will overwrite what is deployed in Intue Configuration Profiles.
