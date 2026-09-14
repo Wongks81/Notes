@@ -549,3 +549,6 @@ Best Practices
     ![](images/2026-09-14-05-39-59.png)
 
 > If there is a conflict between configuration profiles and Group policies, Group policies will overwrite what is deployed in Intue Configuration Profiles.
+
+---
+
