@@ -552,3 +552,46 @@ Best Practices
 
 ---
 
+<h2>Microsoft Tunnel for Intune</h2>
+
+- Microsoft Tunnel is a VPN gateway solution for Intune that runs in a container on Linux and allows access to on-premises resources from iOS/iPadOS and Android Enterprise devices using modern authentication and Conditional Access.
+
+- Setup Process
+  - Microsoft Tunnel Gateway installs onto a container that runs on Linux server
+  - Linux server can be a physical box or virtual machine.
+  - You can deploy Microsoft Defender for Endpoint as Tunnel client app and intune VPN profiles enable iOS and Android devices to use the tunnel to connect to corporate resources.
+  - If the tunnel is hosted on the cloud, you will need to use solutions like Azure ExpressRoute to extend your on-premise network to the cloud.
+
+  - Through the Microsoft Intune admin center:
+    - Download the Microsoft Tunnel Installation script that you will run on Linux servers
+    - Configure aspects of Microsoft Tunnel Gateway like IP addresses, DNS servers and ports
+    - Deploy VPN profiles to devices to direct them to use the tunnel.
+
+    ![](images/2026-09-16-05-33-08.png)
+
+---
+
+<h2>Actions in the device sub menu</h2>
+
+![](images/2026-09-16-05-40-09.png)
+
+- Retire
+  - When device is connect to intune, a container is created to store all company data, apps and settings
+  - Retire instructs machine to remove all company data, apps or settings from the machine
+  - Device is not wipe and personnel data will not be deleted.
+  - Remove device from intune
+
+- Wipe
+  - Factory reset the device to default settings
+  ![](images/2026-09-16-05-44-49.png)
+
+- Delete
+  - Mainly used for stale device, devices that is no longer in intune. 
+  - E.g. old laptops that are decommissioned
+
+- Sync
+  - Send a signal to device to tell them to check if there are jobs for them to run.
+
+- Restart
+  - Remote restart the machine / device
+
