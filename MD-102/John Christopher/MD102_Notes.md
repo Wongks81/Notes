@@ -595,3 +595,94 @@ Best Practices
 - Restart
   - Remote restart the machine / device
 
+---
+
+<h2>Security Baselines in Intune</h2>
+
+- Security baselines is a concept in cybersecurity where the device should at least have a certain base level of security on it before it is allowed to operate in the environment.
+
+- To access security baselines, goto 
+  - Endpoint security > security baselines 
+  ![](images/2026-09-18-05-13-54.png)
+
+- Do take note before when creating a profile for security baselines. The settings might be set to enable on default.
+
+- Settings that is set in the policy after executed in the device will disallow user from changing the state.
+
+---
+
+<h2> Microsoft Defender for Endpoint </h2>
+
+- Is a enterprise grade endpoint security platform designed to help enterprise networks prevent, detect, investigate and respond to advanced threats
+
+- Capabilities
+  - Endpoint Behavioral sensors
+    - Embedded in Windows, sensors collect and process behavioral siggnals from OS and send this sensor data to private, isolated, cloud instance of Endpoint.
+
+  - Cloud security analytics
+    - Behavioral signals are translated into insigghts, detectionss and recommended resposes to adavanced threats.
+
+  - Threat intelligence
+    - Enables Defender to identify attacker tools, techniques and procedures and generate alerts when they are observed in collected sensor data.
+
+  - Threat and Vulnerability Management
+    - Uses a game changing risk based approach to the discovery, prioritization and remediation of endpoint vulnerabilities and misconfigurations
+
+  - Attack surface reduction
+    - Provides the first line of defense by ensuring configuration settings are properly set and exploit mitigations techniques are applied.
+    - Capabilities also covers network protection and web protection, which regulate access to malicious IP addresses, domains and URLs.
+
+  - Next generation protection
+    - Uses next generation protection designed to catch all types of emeerging threats
+
+  - Endpoint detection and response
+    - Endpoint detection and response are put in place to detect, investigate and respond to advanced threats that may have made it past the first 2 security pillars
+
+    - Advanced hunting provides a query based threat hunting tool that lets you proactively find breaches and create custom detections
+
+    - Automated investigation and remediation
+      - Defender offers automatic investigation and remediation capabilities that help reduce the volume of alerts in minutes at scale
+
+    - Microsoft secure score for devices
+      - Defender includes Microsoft secure score for devices to help dynamically assess security state of Enterprise network, identify unprotected systems and take recommended actions to imptove the overall security of your organization.
+
+    - Microsoft Threat Experts
+      - New managed threat hunting service which provides proactive hunting, prioritization and additional context and insights that further empower Security operation centers to identify and respond to threats quickly and accurately.
+
+---
+
+<h2>Managed Device Updates</h2>
+
+- Windows Servicing Model
+  - Feature Update : updates that contains new features
+  - Quality Update : Monthly updates that happens on patch Tuesday (2nd Tuesday of each month)
+
+- Update Channels
+  - Windows Insider
+    - Receive feature updates months before they go public
+    - Has to be turned on in Windows Settings
+    - Mostly to be used on test lab / pilot computers
+
+  - General Availability
+    - Receive feature updates when they go live or a few months later
+    - Mostly used by the majority of production computers
+
+  - Long Term Servicing Channel (LTSC)
+    - Mostly used for critical workstation that feature updates could cause problem for
+    - Must install LTSC version of Windows in order to have this option.
+
+- Windows Update Rings
+  - Something like a timeframe
+  - Tie to servicing channels as follows
+    - Preview
+      - E.g. Preview Ring might contain a group of test computers that will install Windows Insider updates as soon as it is out.
+
+    - Limited
+      - Machines in this group might hold off the updates till further testing as it might be connected or installed with sensitive machines that might not be happy with the updates
+
+    - Broad
+      - The general group where all the machines will be updated.
+
+- Delivery Optimization
+  - Peer to Peer option that allows Windows computers to download updates and share them with neighboring computers on the same network or sometimes even internet
+
