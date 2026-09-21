@@ -686,3 +686,44 @@ Best Practices
 - Delivery Optimization
   - Peer to Peer option that allows Windows computers to download updates and share them with neighboring computers on the same network or sometimes even internet
 
+---
+
+<h2>Deploying Intune Apps</h2>
+
+| App type             | What it means                                             | Example         |
+| -------------------- | --------------------------------------------------------- | --------------- |
+| Built in App         | Intune already know this app                              | Edge, M365 apps |
+| Line of business App | Apps that are created by company                          | myApp.msi       |
+| Windows App          | Modern/general app deployment type, `.intunewin` packages | Setup.exe, custom installer, Win32app |
+
+<br>
+- Office Deployment Tool
+
+  - Single Deployment 
+    - To deploy office, we will need to download the office deployment tool. 
+    ![](images/2026-09-21-05-22-37.png)
+
+    - After downloading and extracting the tool, you should see XML files and a setup file in the folder.
+    ![](images/2026-09-21-05-26-05.png)
+
+    - Example of the XML file
+    ![](images/2026-09-21-05-28-27.png)
+    **If we do not need Visio, we can just delete away the Visio part**
+
+    - To deploy the apps, use `setup.exe /download {configname}.xml` in command prompt or powershell
+
+    - We can deploy it to multiple machines via the use of GPOs or policies if needed.
+      - We can use a BAT or PS script to push the install via a GPO that only run once, to a device 
+  
+    - But it is easier if we deploy it via Intune instead.
+      - By going to Apps > Windows > Add
+      ![](images/2026-09-22-04-12-43.png)
+
+- Configuring Office Apps
+
+  - Office apps can be configured by using
+    - ADMX template that you need to download from web
+    - Intune by going to Apps > Policies for Office Apps
+    ![](images/2026-09-22-04-45-10.png)
+
+
