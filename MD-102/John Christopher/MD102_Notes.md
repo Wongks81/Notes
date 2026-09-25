@@ -726,4 +726,106 @@ Best Practices
     - Intune by going to Apps > Policies for Office Apps
     ![](images/2026-09-22-04-45-10.png)
 
+---
 
+<h2>App Protection Policies</h2>
+
+- App Protection Policies helps making sure that users are not sharing information outside of that device.
+
+---
+
+<h2>Microsoft Graph and Powershell</h2>
+
+- Microsoft Graph is
+  - Unified API endpoint for M365 and Azure Services
+  - Works thru a single endpoint
+    - https://graph.microsoft.com
+  - Supports modern authentication (OAuth 2.0)
+  - Enables automation, reporting and app integration across services
+
+- Limitations of Powershell
+  - Service-specific
+    - Separate modules for Exchange, Azure AD, SharePoint etc
+  - Requires Remote PowerShell sessions
+  - Not Cross-platform (mainly Windows only)
+  - Uses legacy authentication
+  - Complex to automate across services
+
+- Why Microsoft moved to Graph
+  - Unified access model reduces complexity
+  - Works across Windows, mac and Linux
+  - Secure and future proof 
+    - Supports token based auth and conditional access
+  - Supprts modern developer tools and automation
+  - Enables scalable, performant data access
+
+- Microsoft Graph PowerShell Advantages
+  - Single module (Microsoft.Graph) for many services
+  - No need for remote sessions
+  - More efficient and scalable for bulk operations
+  - Ideal for cross service workflow
+  - Continuously updated with new M365 features
+
+- When to use which?
+  - Use Microsoft Graph for modern automation and future compatibility
+  - Use Traditional PowerShell only when a Graph based replacement isn't available yet
+
+---
+
+<h2>Installing and connecting to Microsoft Graph</h2>
+
+- Need to open a PowerShell command as Administrator
+- You will need to set the Execution Policy to either "Unrestricted" or "Bypass"
+  > `Get-ExecutionPolicy` to check the status
+
+  > `Set-ExecutionPolicy -ExecutionPolicy Bypass` to set the status
+
+- To install Microsoft Graph
+  > Install-Module Microsoft.Graph -Scope CurrentUser -Respository PSGallery -force
+
+- You might get a notification that Nuget is needed to install it. So install Nuget first.
+
+- Command to connect to Graph is `Connect-MgGraph`
+  - Do Google for the exact permissions you needed
+  - The `-Scopes` option specifies the permissions that will be given when you connect.
+
+  ![](images/2026-09-24-04-56-09.png)
+
+---
+
+<h2> Microsoft Security Copilot </h2>
+
+- What is Microsoft Security Copilot?
+  - A generative AI powered security assistant built by Microsoft
+  - Integrates with Microsoft security ecosystem
+  - Uses AI to interpret data, summarize threats and suggest actions
+  - Designed to help analysts respond faster and more accurately
+  - Works through natural language prompts for investigations and reporting
+
+- Accelerated Incident Response
+  - Automates the analysis of alerts and incidents
+  - Provides clear summaries of attack chains and impact
+  - Suggests containement and remediation steps instantly
+  - Reduces investigation time from hours to minutes
+  - Helps prioritize critical threats automatically
+
+- Enhanced Threat Hunting
+  - Generates KQL queries and threat hunting scripts using plain English
+  - COrrelates data across Defender, Sentinel and other tools
+  - Identifies anomalies and hidden patterns in security data
+  - Helps analysts discover new threats proactively
+  - Simplifies advanced hunting for all skill levels
+
+- Improved Security Posture Management
+  - Analyzes configurations, Identities and devices for vulnerabilities
+  - Recommends actionable fixes to strengthen defenses
+  - Uses AI to highlight the highest risk misconfigurations
+  - Continously adapts to new threat landscapes
+  - Enhances visibility across hybrid and cloud environments
+
+- Seamless Integration & Continuous Learning
+  - Works natively with Microsoft Defender XDR, Sentinel, Intune, Entra ID and Purview
+  - Adapts to your organization environment and data context
+  - Learns from feedback and improves over time
+  - Offers bult in Responsible AI safeguards for privacy and compliance
+  - Strengthens collaboration between security teams and AI
