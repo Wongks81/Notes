@@ -16,6 +16,10 @@
 
 ---
 
+To use subscription activation, deviecs must be Entra joined or hybrid joined.
+
+---
+
 >You created one required Microsoft 365 Apps deployment that installed Word, Excel, and PowerPoint. <br><br>
 >Later, another admin assigned a second required Microsoft 365 Apps deployment to the same devices that included only Excel and PowerPoint.<br><br>
 >Why did Word disappear from the devices?
@@ -40,6 +44,48 @@
 
 ---
 
+Intune Device limit restrictions 
+  - Default limit a user can enroll is 15 (Normal user enrolling E.g. Laptop, phone, tablet etc.. assigned / belong to him/her)
+  - Limit can be configured in `Devices > Enrollment > Device limit restrictions`
+
+---
+
+Automatic MDM enrollment enabels Windows devices to automatically enroll in Intune when they are joined to Entra
+
+---
+
+Device Configuration Profile in Intune enforces device settings 
+  - Does not control access on compliance
+
+Conditional Access policy in Entra ID can enforce device compliance so that only compliance devices can access M365 Services.
+
+---
+
+Windows Local Administrator Password Solution (LAPS)
+- Windows feature that automatically manages and rotates password of a local administrator account on each device
+- Password can be securely back up to Entra ID or Active Directory
+
+---
+
+Notification on compliance policy for non compliant can only be done on email
+
+---
+
+Windows Configuration Designer is used for creating provisioning packages
+- One of the options is to remove preinstalled software.
+
+---
+
+Device Configuration profile with :
+- Settings catalog
+  - Settings that are similar to AD GPO settings
+    - E.g. Configure Edge Homepage, Disable Control Panel or Configure Bitlocker options
+
+- Templates
+  - Pre-built profiles designed for a specific purpose, relevant settings are group together
+    - E.g. Administrative Templates,VPN, Wifi 
+
+---
 
 
 
