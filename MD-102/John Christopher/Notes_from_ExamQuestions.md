@@ -87,5 +87,30 @@ Device Configuration profile with :
 
 ---
 
+- Dedicated device Profiles
+  - For shared, task specific and intended for tightly controlled usage
+
+- Corporate owned work profile
+  - Supports both work and personel use with seperation between both sides.
+  
+---
+
+- User driven Autopilot
+  - Requires user to go through the setup process
+
+- Autopilot reset workflow
+  - Is used to reset a device to its original state
+
+- Pre-provisioned Autopilot
+  - Ensure employees first sign in experience is as short as possible
+
+- Self deploying Autopilot
+  - Designed for devices that can be setup without user interaction
+
+---
+
+- Entra allows Local Administrator Password to be retreive for troubleshooting purposes
+
+---
 
 

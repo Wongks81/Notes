@@ -829,3 +829,56 @@ Best Practices
   - Learns from feedback and improves over time
   - Offers bult in Responsible AI safeguards for privacy and compliance
   - Strengthens collaboration between security teams and AI
+
+  ---
+
+<h2>Security compute unit</h2>
+
+- Minimum Requirements and Subscription
+  
+  - Must have an Active Azure Subscription for purchasing Security Compute Units (SCUs)
+
+  - All billing, provisioning and management of SCUs occur within Azure portal
+
+- Security Compute Units (SCUs) OVerview
+  
+  - SCUs are the core resource units that power Microsoft Security Copilot
+  - 
+  - Security Copilot operates under 2 capacity models:
+    - Provision Capacity - Billed hourly, for regular workloads
+    - Overage capacity - Billed based on usage, for unexpected workload spikes
+
+- Provisioning and Flexibility
+  
+  - Can adjust the number of SCUs anytime
+
+  - Some Microsoft security products require SCUs for their own operations
+    - These SCUs are exclusive to this product and cannot be shared with Security Copilot
+
+  - SCU capacity for Security Copilot is not shared with Data Security Investigations in Microsoft Purview
+    - Each requires its own provisioned and overage SCUS
+
+- Overage and Capacity Management
+  - To manage unexpected demand spikes, you can pre-allocate overage capacity
+
+  - Oversage units :
+    - Can be unlimited or set to a maximum amount
+    - Are billed on demand and measured in decimal increments (e.g. 1.5 SCUs)
+
+  - Provides predictable billing while maintaining flexibility for fluctuating workloads
+
+- Billing Details
+
+  - Billing based on hourly blocks not by exact minutes
+
+  - Minimum charge is 1 hour per capacity block
+
+  - Any changes withing the same hour still count as a full SCU charge for that hour
+
+- Capacity and Monitoring
+
+  - "Capacity" refers to the Azure resources that holds the provisioned SCUs for Security Copilot
+
+  - Administrators can increase or decrease SCUs directly from Azure Portal or Security Copilot portal
+
+  - Security Copilot includes a usage monitoring dashboard that helps track consumption and guide capacity planning decisions.
