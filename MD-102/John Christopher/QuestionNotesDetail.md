@@ -1,4 +1,5 @@
 - [Licensing requirements](#licensing-requirements)
+- [Device join type](#device-join-type)
 - [Bitlocker](#bitlocker)
 - [Cloud Policy Service](#cloud-policy-service)
 - [App Control for Business](#app-control-for-business)
@@ -23,7 +24,11 @@
 - [Enterprise App Catalog](#enterprise-app-catalog)
 - [Remote Help](#remote-help)
 - [FIDO2 Keys](#fido2-keys)
+- [Attack Surface Reduction (ASR)](#attack-surface-reduction-asr)
+- [Azure Monitor Workbook](#azure-monitor-workbook)
 - [Android or Google Related](#android-or-google-related)
+  - [Teams Rooms on Android devices](#teams-rooms-on-android-devices)
+  - [Android Open Source Project (AOSP) management](#android-open-source-project-aosp-management)
 - [Apple or iOS related](#apple-or-ios-related)
   - [Apple Business Manager (ABM)](#apple-business-manager-abm)
   - [Apple User Enrollment](#apple-user-enrollment)
@@ -36,6 +41,23 @@
 - Windows Autopatch requires a Enterprise E3 or E5 license per user or device
 - Enterprise App Catalog is part of Microsoft Intune Suite add-on
   - Can be purchase as a standalone Enterprise App Management add-on as well.
+
+# Device join type
+- Entra registered
+  - Mainly for Personnel or BYOD devices
+
+  - Device is Entra registered when a user connects their work/school account to a device that isn't necessarily owned by the organization
+
+  - Device gets an identity in Entra ID but Windows does not necessarily use the company's Entra account as the primary device.
+  > Primary device login would be the laptop account login for the BYOD device.
+
+- Entra joined
+  - Mainly for devices that are given to you by company
+
+  - Device is Entra joined when Windows device is joined directly to organization's Entra tenant
+
+- Entra hybrid joined
+  - Mainly for devices that are joined to traditional on premises AD and then registered to Entra ID
 
 # Bitlocker
 - BitLocker key rotation is a security feature that is designed to rotate BitLocker recovery key for individual devices.
@@ -119,6 +141,8 @@
   - Microsoft Defender for Endpoinnt
   - Microsoft 365 Apps for Enterprise (Office) 
 
+- Can also detect report configuration drift against assigned devices
+
 # Security Copilot
 - Security Copilot agent in Intune surfaces recommendations across 3 primary catergories:
   - Device compliance issues (Devices that are out of compliance)
@@ -199,8 +223,22 @@
 # FIDO2 Keys
 - To use FIDO2 keys as an option to login, you will need to enable FIDO2 security key method in Entra ID and scoped it to the respective users or groups.
 
+# Attack Surface Reduction (ASR)
+- Designed to block risky Office child process behavior and suspicious script activity.
+
+- If Windows Defender in ASR profile is set to `Passive` mode, the antivirus will not actively block any threats and will only monitor and report them.
+
+# Azure Monitor Workbook
+- An interactive reporting tool visualize data from logs and metrics into tables, charts and other visualizations
+
 # Android or Google Related
 - OEMConfig is a standardized Google backed framework that allows OEMs to publish a managed configuration schema via a dedicated app.
+
+## Teams Rooms on Android devices
+- Dedicated `meeting room systems` that run Microsoft Teams
+
+## Android Open Source Project (AOSP) management
+- AOSP is the device management platform for Android devices to Enroll into Intune.
 
 # Apple or iOS related
 ## Apple Business Manager (ABM)
