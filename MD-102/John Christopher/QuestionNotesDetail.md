@@ -1,17 +1,27 @@
 - [Licensing requirements](#licensing-requirements)
 - [Device join type](#device-join-type)
 - [Bitlocker](#bitlocker)
+- [Scope Tags](#scope-tags)
 - [Cloud Policy Service](#cloud-policy-service)
 - [App Control for Business](#app-control-for-business)
 - [Policies](#policies)
   - [App Protection Policy](#app-protection-policy)
   - [Application Configuration Policies](#application-configuration-policies)
   - [Quiet time Policies](#quiet-time-policies)
+  - [Driver update policy](#driver-update-policy)
 - [Administrative Templates](#administrative-templates)
 - [Break Glass Accounts](#break-glass-accounts)
+- [Windows Hello for Business](#windows-hello-for-business)
+  - [Cloud Deployment](#cloud-deployment)
+  - [Hybrid Deployment](#hybrid-deployment)
 - [Autopilot](#autopilot)
   - [Modes of Autopilot](#modes-of-autopilot)
   - [Device Preparation](#device-preparation)
+  - [Device name Templates](#device-name-templates)
+- [Intune Enrollment Restrictions](#intune-enrollment-restrictions)
+  - [Device Platform restrictions](#device-platform-restrictions)
+  - [Device limit restrictions](#device-limit-restrictions)
+- [Windows Configuration Designer (WCD)](#windows-configuration-designer-wcd)
 - [Security Baseline](#security-baseline)
 - [Security Copilot](#security-copilot)
 - [KQL Queries](#kql-queries)
@@ -26,10 +36,13 @@
 - [FIDO2 Keys](#fido2-keys)
 - [Attack Surface Reduction (ASR)](#attack-surface-reduction-asr)
 - [Azure Monitor Workbook](#azure-monitor-workbook)
+- [Cloud PKI(Public Key Infrastructure) for Microsoft Intune](#cloud-pkipublic-key-infrastructure-for-microsoft-intune)
 - [Android or Google Related](#android-or-google-related)
   - [Teams Rooms on Android devices](#teams-rooms-on-android-devices)
   - [Android Open Source Project (AOSP) management](#android-open-source-project-aosp-management)
+  - [Firmware over the air (FOTA) deployment](#firmware-over-the-air-fota-deployment)
 - [Apple or iOS related](#apple-or-ios-related)
+  - [.mobileconfig](#mobileconfig)
   - [Apple Business Manager (ABM)](#apple-business-manager-abm)
   - [Apple User Enrollment](#apple-user-enrollment)
   - [Automated Device Enrollment (ADE) via Apple Business Manager](#automated-device-enrollment-ade-via-apple-business-manager)
@@ -63,7 +76,8 @@
 - BitLocker key rotation is a security feature that is designed to rotate BitLocker recovery key for individual devices.
   - Performed on a per-device basis and is not available as a `bulk action` for multiple devices at once
 
-
+# Scope Tags
+- Scope tags filter visibility and management rights for role based administrators across distributed IT teams
 
 # Cloud Policy Service
 > How should the M365 apps behave
@@ -91,6 +105,8 @@
 - Device must be registered in Entra ID and a broker app like `Microsoft Company Portal` is required for sign in.
   - Broker apps helps identify the identity and Device relationship with Intune or Entra
 
+- Tunnel for MAM extends secure per-app VPN connectivity to unmanaged (MAM-only) devices using app protection policies.
+
 ## Application Configuration Policies
 - Managed devices app configurationnnnn policies are delivered through MDM and require the device to be enrolled to Intune.
 
@@ -98,6 +114,9 @@
 
 ## Quiet time Policies
 - Quiet time policies are a dedicated policy type to mute Microsoft Outlook and Teams notifications at certain time period (E.g 6PM to 7AM) on iOS and Android.
+
+## Driver update policy
+- Let admins review, approve and control the rollout of driver updates distributed via Windows Update for Business
 
 # Administrative Templates
 - Imported Administrative Templates
@@ -108,20 +127,42 @@
 
 - Accounts that is an emergency administrator account to use when normal administrator accoutns cannot access the environmennt.
 
+# Windows Hello for Business 
+## Cloud Deployment
+>Entra ID handles the identity and sign in, no trust model is needed
+  - Device is joined to Entra ID rather then On Premise AD
+  - Lets user sign in with PIN or biometrics instead of password
+  - For normal cloud sign in, no separate trust model is needed.
+  
+## Hybrid Deployment
+>Entra ID handles the identity but trust model maybe needed to access on-premises AD DS resources
+  - lets users sign in to Windows using Windows Hello for Business while organization still uses on premises Active Directory Domain Service alongside Microsoft Entra ID.
+  - Replaces password based sign in with a PIN or biometric gesture, such as fingerprint or facial recognition.
+  - PIN is tied to device and protects a cryptographic key
+
+  | Trust Model          | Explanation                                                                                                                                              |
+  | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Cloud kerberos Trust | Recommended for most new hybrid deployments. <br><br>No user certificates or Enterprise PKI required.<br><br> Uses Entra Kerberos for on premises access |
+  | Key Trust            | User public key is synchronized to on premises AD <br><br> Domain Controllers still need certificates                                                    |
+  | Certificate trust    | Issues authentication certificates to users<br><br> Requires enterprise PKI and AD FS in hybrid model. |
+
+- Users can reset a forgotten Windows Hello for Business PIN if it is enabled in Intune Policy.
+
 # Autopilot 
 
 ## Modes of Autopilot
-  - Pre-provisioning mode
+  - Pre-provisioning mode (white glove)
     - This mode requires minimum sign in experience on first boot
 
   - User driven mode
     - This mode requires the end user to authenticate with their Microsoft Entra ID during OOBE
+    - Can be configured to create a Standard type of account (Non-admin) when the user logs during OOBE.
     - Specifically designed for scenarios where remote employees receive devices and complete setup themselves without IT involvement on-site.
 
   - Existing device deployment mode
     - Is used to reimage and enroll devices that are not yet registered in Autopilot
 
-  - Self-deploying mode
+  - Self-deploying mode (Kiosk Mode)
     - Does not require any user interaction or authentication during OOBE
     - Leveraging the device's TPM to authenticate to Microsoft Entra ID and Intune automatically
 
@@ -132,6 +173,23 @@
   - Device Setup tracks apps, certs and policies assigned to the device
   - Account Setup tracks apps, certs and policies assignend to the user
 
+## Device name Templates
+- Limited to 15 characters, matching NetBIOs limit
+- Can include %RAND:x%, where x is the number of random string characters
+- Can include %SERIAL% variable to include the serial number as part of the device name
+
+# Intune Enrollment Restrictions
+## Device Platform restrictions
+- Controls which platforms and ownership types can enroll
+  - Allows or block Windows, macOS, iOS and Android
+  - Block BYOD for supported platforms
+
+## Device limit restrictions
+- Controls how many devices a user can enroll
+
+# Windows Configuration Designer (WCD)
+- Microsoft tool used to create provisioning packages (.ppkg) that can configure Windows devices without requiring a full traditional imaging process
+
 # Security Baseline
 - A group of preconfigured settings recommended by Microsoft security team.
   - You can deploy the defaults or customize them accoding to needs
@@ -140,6 +198,12 @@
   - Windows 10/11 security baseline
   - Microsoft Defender for Endpoinnt
   - Microsoft 365 Apps for Enterprise (Office) 
+
+- Valid Platforms for security baselines
+  - Windows
+  - macOS
+  - iOS
+  - Android
 
 - Can also detect report configuration drift against assigned devices
 
@@ -199,8 +263,10 @@
 
 # Local Administrators Password Solution (LAPS)
 - A policy which manages the local administrator's password for the device
-  - password is also automatically rotated for security purpose.
+  - Password is also automatically rotated for security purpose.
+
 - Policy is found under Endpoint Security > Account Protection
+
 - Policy has a template that surfaces all key settings, including:
   - Backup Directory
   - Password age
@@ -231,6 +297,10 @@
 # Azure Monitor Workbook
 - An interactive reporting tool visualize data from logs and metrics into tables, charts and other visualizations
 
+# Cloud PKI(Public Key Infrastructure) for Microsoft Intune
+- Cloud PKI is a cloud based, fully managed PKI service offered as part of Intune Suite, eliminating the need for on premises CA infrastructure.
+-----
+
 # Android or Google Related
 - OEMConfig is a standardized Google backed framework that allows OEMs to publish a managed configuration schema via a dedicated app.
 
@@ -240,7 +310,18 @@
 ## Android Open Source Project (AOSP) management
 - AOSP is the device management platform for Android devices to Enroll into Intune.
 
+## Firmware over the air (FOTA) deployment
+- Lets Intune schedule and control delivery of full OS firmware updates to supported managed Android devices
+
+----
+
 # Apple or iOS related
+## .mobileconfig
+- .mobileconfig is an Apple configuration profile containing settings called payloads
+  - Payloads define the settings to apply, such as WIFI, VPN certs or restrictions
+
+- Intune macOS custom profiles let admins upload a .mobileconfig file containing the desired payload settings
+
 ## Apple Business Manager (ABM)
 - Intergration between Apple Business Manager and Microsoft Intune requires a specific token exchange.
   - Intune generates a public key (.pem file)
