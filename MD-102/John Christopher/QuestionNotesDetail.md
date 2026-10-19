@@ -55,6 +55,14 @@
 - Enterprise App Catalog is part of Microsoft Intune Suite add-on
   - Can be purchase as a standalone Enterprise App Management add-on as well.
 
+## Types of Activation
+
+|Activation Type|How it works|
+|---|---|
+|Subscription Activation| User signs in and Microsoft verifies the Microsoft 365 license|
+|Product Key Activation| Product key is used / redeemed |
+|Volume Activation| Organization uses 1 Product key to activate X number of devices| 
+
 # Device join type
 - Entra registered
   - Mainly for Personnel or BYOD devices
@@ -94,11 +102,20 @@
 # App Control for Business
 - A windows security feature that controls which applications is allowed for the device.
 
+# Device Configuration Profile
+## Settings Catalog
+- A large searchable library of settings
+- Start from scratch and add the settings you want
+
+## Templates
+- Predefined collection fro a particular purpose
+- Start with a specific configuration type
+
 # Policies
-## App Protection Policy
+## Application Protection Policy
 > What can the user do with the data inside the app
 
-- Data protection policy for the application
+- Data protection policy for the application, what and where you can copy and paste, can be disabled.
 
 - Enforce specific Intune app protection policy set by the organization
 
@@ -111,6 +128,8 @@
 - Managed devices app configurationnnnn policies are delivered through MDM and require the device to be enrolled to Intune.
 
 -  Managed apps app configuration policies are delivered through the App Protection Policy (MAM) channel and do not need device enrollment.
+
+- App Configuration Policy allows for app settings to be configured regardless of enrollment status
 
 ## Quiet time Policies
 - Quiet time policies are a dedicated policy type to mute Microsoft Outlook and Teams notifications at certain time period (E.g 6PM to 7AM) on iOS and Android.
