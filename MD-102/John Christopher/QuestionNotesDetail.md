@@ -1,11 +1,15 @@
 - [Licensing requirements](#licensing-requirements)
+  - [Types of Activation](#types-of-activation)
 - [Device join type](#device-join-type)
 - [Bitlocker](#bitlocker)
 - [Scope Tags](#scope-tags)
 - [Cloud Policy Service](#cloud-policy-service)
 - [App Control for Business](#app-control-for-business)
+- [Device Configuration Profile](#device-configuration-profile)
+  - [Settings Catalog](#settings-catalog)
+  - [Templates](#templates)
 - [Policies](#policies)
-  - [App Protection Policy](#app-protection-policy)
+  - [Application Protection Policy](#application-protection-policy)
   - [Application Configuration Policies](#application-configuration-policies)
   - [Quiet time Policies](#quiet-time-policies)
   - [Driver update policy](#driver-update-policy)
@@ -22,6 +26,7 @@
   - [Device Platform restrictions](#device-platform-restrictions)
   - [Device limit restrictions](#device-limit-restrictions)
 - [Windows Configuration Designer (WCD)](#windows-configuration-designer-wcd)
+- [Office Customization Tool](#office-customization-tool)
 - [Security Baseline](#security-baseline)
 - [Security Copilot](#security-copilot)
 - [KQL Queries](#kql-queries)
@@ -209,6 +214,11 @@
 # Windows Configuration Designer (WCD)
 - Microsoft tool used to create provisioning packages (.ppkg) that can configure Windows devices without requiring a full traditional imaging process
 
+# Office Customization Tool
+- Tool to build the deployment configuration for M365 Apps during Autopilot
+- Allows customization of various settings such as 64 bit Apps, Montly Enterprise Channel and more
+- Can be done without the need for manual XML editing
+
 # Security Baseline
 - A group of preconfigured settings recommended by Microsoft security team.
   - You can deploy the defaults or customize them accoding to needs
@@ -235,6 +245,12 @@
 # KQL Queries
 - On demand device query is gated by the dedicated `Managed devices > Query` RBAC permission
   - Role need to have this permission in order for them to run Queries
+
+- Single device query device requirements is that, the device must be managed by Intune and marked as corporate owned
+  
+- Device must be Entra joined or Entra Hybrid joined
+  
+- For multiple device queries, a Windows properties catalog policy is required
 
 # Update Rings
 
