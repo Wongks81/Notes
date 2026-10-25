@@ -4,15 +4,20 @@
 - [Bitlocker](#bitlocker)
 - [Scope Tags](#scope-tags)
 - [Cloud Policy Service](#cloud-policy-service)
-- [App Control for Business](#app-control-for-business)
+- [Applications](#applications)
+  - [App Control for Business](#app-control-for-business)
+  - [Win32 App](#win32-app)
+  - [Enterprise App Catalog](#enterprise-app-catalog)
 - [Device Configuration Profile](#device-configuration-profile)
   - [Settings Catalog](#settings-catalog)
   - [Templates](#templates)
 - [Policies](#policies)
   - [Application Protection Policy](#application-protection-policy)
   - [Application Configuration Policies](#application-configuration-policies)
+  - [Managed apps policy](#managed-apps-policy)
   - [Quiet time Policies](#quiet-time-policies)
   - [Driver update policy](#driver-update-policy)
+  - [Cloud policy vs Cloud Updates](#cloud-policy-vs-cloud-updates)
 - [Administrative Templates](#administrative-templates)
 - [Break Glass Accounts](#break-glass-accounts)
 - [Windows Hello for Business](#windows-hello-for-business)
@@ -22,21 +27,26 @@
   - [Modes of Autopilot](#modes-of-autopilot)
   - [Device Preparation](#device-preparation)
   - [Device name Templates](#device-name-templates)
+  - [Autopilot M365 Apps rollout](#autopilot-m365-apps-rollout)
 - [Intune Enrollment Restrictions](#intune-enrollment-restrictions)
   - [Device Platform restrictions](#device-platform-restrictions)
   - [Device limit restrictions](#device-limit-restrictions)
 - [Windows Configuration Designer (WCD)](#windows-configuration-designer-wcd)
 - [Office Customization Tool](#office-customization-tool)
+- [Windows Defender for Endpoint](#windows-defender-for-endpoint)
+  - [Devices settings](#devices-settings)
 - [Security Baseline](#security-baseline)
+  - [Per-setting status report](#per-setting-status-report)
 - [Security Copilot](#security-copilot)
 - [KQL Queries](#kql-queries)
+- [Diagnostic upload endpoint](#diagnostic-upload-endpoint)
 - [Update Rings](#update-rings)
 - [Microsoft Tunnel Gateway](#microsoft-tunnel-gateway)
 - [Multi-admin approval](#multi-admin-approval)
 - [Microsoft Graph](#microsoft-graph)
 - [Delivery Optimization Profile](#delivery-optimization-profile)
 - [Local Administrators Password Solution (LAPS)](#local-administrators-password-solution-laps)
-- [Enterprise App Catalog](#enterprise-app-catalog)
+- [Enterprise App Catalog](#enterprise-app-catalog-1)
 - [Remote Help](#remote-help)
 - [FIDO2 Keys](#fido2-keys)
 - [Attack Surface Reduction (ASR)](#attack-surface-reduction-asr)
@@ -52,6 +62,9 @@
   - [Apple User Enrollment](#apple-user-enrollment)
   - [Automated Device Enrollment (ADE) via Apple Business Manager](#automated-device-enrollment-ade-via-apple-business-manager)
   - [Apple Volume Purchase Program (VPP)](#apple-volume-purchase-program-vpp)
+  - [Device features template](#device-features-template)
+  - [Userless MacOS Devices](#userless-macos-devices)
+  - [Apple Device Management](#apple-device-management)
 - [Linux related](#linux-related)
 
 
@@ -104,8 +117,18 @@
 
 - User need to be signed in aand has a valid license for the policies to be applied successfully
 
-# App Control for Business
+# Applications
+## App Control for Business
 - A windows security feature that controls which applications is allowed for the device.
+
+## Win32 App
+- Traditional Windows Desktop Application, typically with extensions of .msi or .exe
+- If the app is from Microsoft Store, you may need to repackage it as a Win32 app if you need to add a dependency chain and supersedence for prerequisite runtimes.
+
+## Enterprise App Catalog
+- These are applications that are pre packaged by Microsoft with install commands, requirements and detection rules
+- Provides a simpler way to move to newer cataloged versions without constantly rebuilding the entire deployment approach
+  - Uses the supersedence relationship when a newer version is available
 
 # Device Configuration Profile
 ## Settings Catalog
@@ -136,11 +159,21 @@
 
 - App Configuration Policy allows for app settings to be configured regardless of enrollment status
 
+## Managed apps policy
+- Allows admin to apply app configuration settings to apps on both enrolled and unenrolled devices
+  - To ensure that the same general app configuration settings reach all devices regardless of enrollment status
+
 ## Quiet time Policies
 - Quiet time policies are a dedicated policy type to mute Microsoft Outlook and Teams notifications at certain time period (E.g 6PM to 7AM) on iOS and Android.
 
 ## Driver update policy
 - Let admins review, approve and control the rollout of driver updates distributed via Windows Update for Business
+
+## Cloud policy vs Cloud Updates
+- Cloud policy is used to enforce policies and settings for cloud based services in M365
+  - Can be used to manage M365 Apps updates
+
+- Cloud updates manages the update settings like custom rollout waves, exclusion windows
 
 # Administrative Templates
 - Imported Administrative Templates
@@ -202,6 +235,10 @@
 - Can include %RAND:x%, where x is the number of random string characters
 - Can include %SERIAL% variable to include the serial number as part of the device name
 
+## Autopilot M365 Apps rollout
+- Office Customization Tool (OCT) creates and exports configuration files that are used with Office Deployment Tools (ODT)
+- Win32 apps in Intune are deployed using the Intune Management Extension
+
 # Intune Enrollment Restrictions
 ## Device Platform restrictions
 - Controls which platforms and ownership types can enroll
@@ -214,10 +251,22 @@
 # Windows Configuration Designer (WCD)
 - Microsoft tool used to create provisioning packages (.ppkg) that can configure Windows devices without requiring a full traditional imaging process
 
+- Allows admins to apply standard WIFI profiles, device naming patterns and base settings to Windows before they connect to the internet.
+
+- You should NOT apply PPKG to the same rollout as Windows Autopilot
+  - This can lead to conflicting settings and configurations
+
 # Office Customization Tool
 - Tool to build the deployment configuration for M365 Apps during Autopilot
 - Allows customization of various settings such as 64 bit Apps, Montly Enterprise Channel and more
 - Can be done without the need for manual XML editing
+
+# Windows Defender for Endpoint
+
+## Devices settings
+- Connect Windows devices setting when enabled allow enrolled Windows devices to use Defender risk in compliance evaluation
+  - This setting ensures that devices can communicate and integrade with Microsoft Defender for Endpoint
+  - Enabling this setting is crucial for proper functioning of the service to service connection between Intune and Defender 
 
 # Security Baseline
 - A group of preconfigured settings recommended by Microsoft security team.
@@ -236,6 +285,12 @@
 
 - Can also detect report configuration drift against assigned devices
 
+## Per-setting status report
+- Provide detailed information on each individual setting within the security baseline profile
+  - This allows admins to identify the specific setting that is failing or conflicting
+
+- Report will help to pinpoint the exact issue before making any baseline design
+
 # Security Copilot
 - Security Copilot agent in Intune surfaces recommendations across 3 primary catergories:
   - Device compliance issues (Devices that are out of compliance)
@@ -251,6 +306,12 @@
 - Device must be Entra joined or Entra Hybrid joined
   
 - For multiple device queries, a Windows properties catalog policy is required
+
+# Diagnostic upload endpoint
+- Used for uploading diagnostic collections (logs) from device to Microsoft for troubleshooting.
+
+- Can only be done via Intune admin center
+  - You cannot use Microsoft Graph for this operation.
 
 # Update Rings
 
@@ -339,6 +400,8 @@
 # Android or Google Related
 - OEMConfig is a standardized Google backed framework that allows OEMs to publish a managed configuration schema via a dedicated app.
 
+- Maintenace window can be set to install updates during the window
+
 ## Teams Rooms on Android devices
 - Dedicated `meeting room systems` that run Microsoft Teams
 
@@ -376,5 +439,18 @@
 - VPP app licenses can be revoked by administrators in Intune directly from Intune Portal.
 - This Action can be performed regardless of whether the device is still enrolled.
 
+## Device features template
+- Specifically for iOS or mac devices.
+- Allows for configuration of device settings, including AirPrint or Apple SSO for internal web apps
+- Template can be used to push specific settings and configruations to the Apple devices without the need to import custom file.
+
+## Userless MacOS Devices
+- For devices that are setup to be shared without being assigned to a specific user
+  - E.g. macs in meeting rooms
+
+- Intune compliance evaluation is not supported for userless macOS
+
+## Apple Device Management
+- Supervision state gives an organization greater control over the device
 
 # Linux related
