@@ -18,6 +18,8 @@
   - [Quiet time Policies](#quiet-time-policies)
   - [Driver update policy](#driver-update-policy)
   - [Cloud policy vs Cloud Updates](#cloud-policy-vs-cloud-updates)
+- [Error Codes](#error-codes)
+  - [0x800705B4 Time out Error](#0x800705b4-time-out-error)
 - [Administrative Templates](#administrative-templates)
 - [Break Glass Accounts](#break-glass-accounts)
 - [Windows Hello for Business](#windows-hello-for-business)
@@ -30,11 +32,16 @@
   - [Autopilot M365 Apps rollout](#autopilot-m365-apps-rollout)
 - [Intune Enrollment Restrictions](#intune-enrollment-restrictions)
   - [Device Platform restrictions](#device-platform-restrictions)
+- [Delivery Optimization](#delivery-optimization)
+  - [NAT peering](#nat-peering)
   - [Device limit restrictions](#device-limit-restrictions)
 - [Windows Configuration Designer (WCD)](#windows-configuration-designer-wcd)
+  - [Bulk enrollment using Provisioning Packages](#bulk-enrollment-using-provisioning-packages)
 - [Office Customization Tool](#office-customization-tool)
 - [Windows Defender for Endpoint](#windows-defender-for-endpoint)
   - [Devices settings](#devices-settings)
+  - [Antivirus Policy](#antivirus-policy)
+  - [Cloud Protection with sample submission](#cloud-protection-with-sample-submission)
 - [Security Baseline](#security-baseline)
   - [Per-setting status report](#per-setting-status-report)
 - [Security Copilot](#security-copilot)
@@ -42,6 +49,7 @@
 - [Diagnostic upload endpoint](#diagnostic-upload-endpoint)
 - [Update Rings](#update-rings)
 - [Microsoft Tunnel Gateway](#microsoft-tunnel-gateway)
+  - [MAM tunnel](#mam-tunnel)
 - [Multi-admin approval](#multi-admin-approval)
 - [Microsoft Graph](#microsoft-graph)
 - [Delivery Optimization Profile](#delivery-optimization-profile)
@@ -56,15 +64,21 @@
   - [Teams Rooms on Android devices](#teams-rooms-on-android-devices)
   - [Android Open Source Project (AOSP) management](#android-open-source-project-aosp-management)
   - [Firmware over the air (FOTA) deployment](#firmware-over-the-air-fota-deployment)
+  - [Device restrictions](#device-restrictions)
 - [Apple or iOS related](#apple-or-ios-related)
   - [.mobileconfig](#mobileconfig)
   - [Apple Business Manager (ABM)](#apple-business-manager-abm)
   - [Apple User Enrollment](#apple-user-enrollment)
   - [Automated Device Enrollment (ADE) via Apple Business Manager](#automated-device-enrollment-ade-via-apple-business-manager)
+  - [Web based Device Enrollment](#web-based-device-enrollment)
   - [Apple Volume Purchase Program (VPP)](#apple-volume-purchase-program-vpp)
   - [Device features template](#device-features-template)
   - [Userless MacOS Devices](#userless-macos-devices)
   - [Apple Device Management](#apple-device-management)
+  - [Setting Catalog](#setting-catalog)
+  - [Preference file Template](#preference-file-template)
+  - [Endpoint Security](#endpoint-security)
+    - [macOS FileVault policy](#macos-filevault-policy)
 - [Linux related](#linux-related)
 
 
@@ -115,7 +129,9 @@
 - Policy settings are generally applied only when the Office app is restarted
   - Some privacy control policies are exception
 
-- User need to be signed in aand has a valid license for the policies to be applied successfully
+- User need to be signed in and has a valid license for the policies to be applied successfully
+
+- Device does not need to be enrolled, policy settings for M365 Apps can be applied and enforced on unmanaged devices.
 
 # Applications
 ## App Control for Business
@@ -123,6 +139,8 @@
 
 ## Win32 App
 - Traditional Windows Desktop Application, typically with extensions of .msi or .exe
+- Correct choice for deploying large desktop application to windows devices during Autopilot enrollment
+- Allows you to package and deploy Win32 applications with multiple files, silent installation, detection rules.
 - If the app is from Microsoft Store, you may need to repackage it as a Win32 app if you need to add a dependency chain and supersedence for prerequisite runtimes.
 
 ## Enterprise App Catalog
@@ -175,6 +193,11 @@
 
 - Cloud updates manages the update settings like custom rollout waves, exclusion windows
 
+# Error Codes
+## 0x800705B4 Time out Error
+- Commonly associated with unsupported virtual machines during self deploying mode
+- Normally caused by VM not having TPM 2.0 capability
+
 # Administrative Templates
 - Imported Administrative Templates
   - These are mainly templates from 3rd parties when settings for their product are not available in the built in settings catalog
@@ -215,6 +238,7 @@
     - This mode requires the end user to authenticate with their Microsoft Entra ID during OOBE
     - Can be configured to create a Standard type of account (Non-admin) when the user logs during OOBE.
     - Specifically designed for scenarios where remote employees receive devices and complete setup themselves without IT involvement on-site.
+    - Supports both Microsoft Entra and Microsoft Entra Hybrid joined
 
   - Existing device deployment mode
     - Is used to reimage and enroll devices that are not yet registered in Autopilot
@@ -245,6 +269,13 @@
   - Allows or block Windows, macOS, iOS and Android
   - Block BYOD for supported platforms
 
+# Delivery Optimization
+## NAT peering
+- Protocol for peer sharing across NAT boundaries
+  - Port TCP 7680 Delivery Optimization peer to peer content sharing
+  - Port UDP 3544 Teredo NAT traversal, helping peers connect across NATs
+  - Port TCP 80 / 443 Donwload from Delivery Optimization cloud services 
+
 ## Device limit restrictions
 - Controls how many devices a user can enroll
 
@@ -255,6 +286,9 @@
 
 - You should NOT apply PPKG to the same rollout as Windows Autopilot
   - This can lead to conflicting settings and configurations
+
+## Bulk enrollment using Provisioning Packages
+- For Windows bulk enrollment using Provisioning package, we need to retrieve a bulk token in WCD before applying the provisioning package to the device.
 
 # Office Customization Tool
 - Tool to build the deployment configuration for M365 Apps during Autopilot
@@ -267,6 +301,14 @@
 - Connect Windows devices setting when enabled allow enrolled Windows devices to use Defender risk in compliance evaluation
   - This setting ensures that devices can communicate and integrade with Microsoft Defender for Endpoint
   - Enabling this setting is crucial for proper functioning of the service to service connection between Intune and Defender 
+
+## Antivirus Policy
+- Purpose built for antivirus management and allows admins to configure settings related to Microsoft Defender Antivirus
+
+- Designed to avoid unrelated device setings and focus solely on antivirus management
+
+## Cloud Protection with sample submission
+- Allows Windows Defender to leverage cloud based threat intelligence and analysis to quickly identify and block newly encountered suspicious files
 
 # Security Baseline
 - A group of preconfigured settings recommended by Microsoft security team.
@@ -332,6 +374,12 @@
 
 # Microsoft Tunnel Gateway 
 - To install it on a Linux server, it must run on a currently supported Linux distribution, be reachable by mobile devices at its published address and have a supported container runtime installed.
+
+## MAM tunnel
+- Tunnel for MAM on android does not support Always on VPN
+  - When Always on VPN is enabled, the Tunnel connection fails
+
+- When security requirement to block network access whenever MAM tunnel cannot connect, Admins should use Strict Tunnel Mode through the Microsoft Edge managed app configuration policy
 
 # Multi-admin approval
 - Multi-admin approval is a tenant level feature in Microsoft Inntune that is designed to add an additionnnnal layer of oversight by required a second administrator to approve certainnn high-impact changes.
@@ -411,6 +459,10 @@
 ## Firmware over the air (FOTA) deployment
 - Lets Intune schedule and control delivery of full OS firmware updates to supported managed Android devices
 
+## Device restrictions
+- Device restrictions in Intune allow you to control various settings and features on devices
+  - This includes the ability to manage when OS and app updates are installed and define freeze periods.
+
 ----
 
 # Apple or iOS related
@@ -433,7 +485,13 @@
   - Limits Intune management scope to work apps and accounts, prevent full device wipes
 
 ## Automated Device Enrollment (ADE) via Apple Business Manager
-- Intended for corporate-owned devices 
+- Intended for corporate-owned devices
+- Default All Users enrollment must aloow the iOS/iPadOS platform
+  - Block the platform will cause ADE to fail with Invalid Profile result.
+
+## Web based Device Enrollment
+- Supports personal devices running iOS/iPadOS 15 or later
+- Uses Safari and does not require Company Portal app
 
 ## Apple Volume Purchase Program (VPP)
 - VPP app licenses can be revoked by administrators in Intune directly from Intune Portal.
@@ -452,5 +510,20 @@
 
 ## Apple Device Management
 - Supervision state gives an organization greater control over the device
+
+## Setting Catalog
+- Settings catalog is a common place to configure settings
+- The settings depends on OS and platform, meaning Windows and Mac each have its own setting catalog
+
+## Preference file Template
+- For preconfiguring line of business macOS app by deploying its .plist settings file
+- Allows you to define and deploy custom preferences and settings for macOS apps
+
+## Endpoint Security
+### macOS FileVault policy
+- For managing startup disk encryption on company owned MacBookthrough Apple Business Manage.
+- Policy allows admins to enforce FileVault disk ecryption settings, manage recovery information and ensure complianace
+
+----
 
 # Linux related
