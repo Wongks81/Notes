@@ -8,6 +8,7 @@
   - [App Control for Business](#app-control-for-business)
   - [Win32 App](#win32-app)
   - [Enterprise App Catalog](#enterprise-app-catalog)
+  - [Installation behavior : User vs System](#installation-behavior--user-vs-system)
 - [Device Configuration Profile](#device-configuration-profile)
   - [Settings Catalog](#settings-catalog)
   - [Templates](#templates)
@@ -18,6 +19,9 @@
   - [Quiet time Policies](#quiet-time-policies)
   - [Driver update policy](#driver-update-policy)
   - [Cloud policy vs Cloud Updates](#cloud-policy-vs-cloud-updates)
+- [Intune Advanced Analytics](#intune-advanced-analytics)
+- [Cloud Public Key Infrastructure (PKI)](#cloud-public-key-infrastructure-pki)
+  - [Simple Certificate Enrollment Protocol (SCEP)](#simple-certificate-enrollment-protocol-scep)
 - [Error Codes](#error-codes)
   - [0x800705B4 Time out Error](#0x800705b4-time-out-error)
 - [Administrative Templates](#administrative-templates)
@@ -33,6 +37,7 @@
 - [Intune Enrollment Restrictions](#intune-enrollment-restrictions)
   - [Device Platform restrictions](#device-platform-restrictions)
 - [Delivery Optimization](#delivery-optimization)
+  - [Delivery Optimization Profile](#delivery-optimization-profile)
   - [NAT peering](#nat-peering)
   - [Device limit restrictions](#device-limit-restrictions)
 - [Windows Configuration Designer (WCD)](#windows-configuration-designer-wcd)
@@ -41,10 +46,13 @@
 - [Windows Defender for Endpoint](#windows-defender-for-endpoint)
   - [Devices settings](#devices-settings)
   - [Antivirus Policy](#antivirus-policy)
+  - [Endpoint security disk encryption policy](#endpoint-security-disk-encryption-policy)
   - [Cloud Protection with sample submission](#cloud-protection-with-sample-submission)
 - [Security Baseline](#security-baseline)
   - [Per-setting status report](#per-setting-status-report)
 - [Security Copilot](#security-copilot)
+- [Virtual Machines](#virtual-machines)
+  - [Multi-session session hosts](#multi-session-session-hosts)
 - [KQL Queries](#kql-queries)
 - [Diagnostic upload endpoint](#diagnostic-upload-endpoint)
 - [Update Rings](#update-rings)
@@ -52,7 +60,6 @@
   - [MAM tunnel](#mam-tunnel)
 - [Multi-admin approval](#multi-admin-approval)
 - [Microsoft Graph](#microsoft-graph)
-- [Delivery Optimization Profile](#delivery-optimization-profile)
 - [Local Administrators Password Solution (LAPS)](#local-administrators-password-solution-laps)
 - [Enterprise App Catalog](#enterprise-app-catalog-1)
 - [Remote Help](#remote-help)
@@ -61,9 +68,11 @@
 - [Azure Monitor Workbook](#azure-monitor-workbook)
 - [Cloud PKI(Public Key Infrastructure) for Microsoft Intune](#cloud-pkipublic-key-infrastructure-for-microsoft-intune)
 - [Android or Google Related](#android-or-google-related)
+  - [Android compliance policy](#android-compliance-policy)
   - [Teams Rooms on Android devices](#teams-rooms-on-android-devices)
   - [Android Open Source Project (AOSP) management](#android-open-source-project-aosp-management)
   - [Firmware over the air (FOTA) deployment](#firmware-over-the-air-fota-deployment)
+  - [Android Dedicated Enrollment](#android-dedicated-enrollment)
   - [Device restrictions](#device-restrictions)
 - [Apple or iOS related](#apple-or-ios-related)
   - [.mobileconfig](#mobileconfig)
@@ -71,6 +80,8 @@
   - [Apple User Enrollment](#apple-user-enrollment)
   - [Automated Device Enrollment (ADE) via Apple Business Manager](#automated-device-enrollment-ade-via-apple-business-manager)
   - [Web based Device Enrollment](#web-based-device-enrollment)
+  - [Apple Configurator for iOS](#apple-configurator-for-ios)
+  - [Apple Configurator for Mac](#apple-configurator-for-mac)
   - [Apple Volume Purchase Program (VPP)](#apple-volume-purchase-program-vpp)
   - [Device features template](#device-features-template)
   - [Userless MacOS Devices](#userless-macos-devices)
@@ -108,6 +119,8 @@
   - Mainly for devices that are given to you by company
 
   - Device is Entra joined when Windows device is joined directly to organization's Entra tenant
+
+  - Entra Joined is necessary for device name template to apply during enrollment
 
 - Entra hybrid joined
   - Mainly for devices that are joined to traditional on premises AD and then registered to Entra ID
@@ -147,6 +160,15 @@
 - These are applications that are pre packaged by Microsoft with install commands, requirements and detection rules
 - Provides a simpler way to move to newer cataloged versions without constantly rebuilding the entire deployment approach
   - Uses the supersedence relationship when a newer version is available
+
+## Installation behavior : User vs System
+| Installation behvaior | System                           | User                              |
+| --------------------- | -------------------------------- | --------------------------------- |
+| Runs under            | Local SYSTEM account             | Signed in User account            |
+| Installation Timing   | Can install before user signs in | Requires user sign in             |
+| Installation scope    | Device wide                      | User profile                      |
+| Available to          | All users on device              | Targeted user                     |
+| Admin rights          | Not needed                       | Depends on installer requirements |
 
 # Device Configuration Profile
 ## Settings Catalog
@@ -192,6 +214,18 @@
   - Can be used to manage M365 Apps updates
 
 - Cloud updates manages the update settings like custom rollout waves, exclusion windows
+
+# Intune Advanced Analytics
+- Provides advanced insights into endpoint performance
+- Allows admins to identify trends, prioritize remediation and reduce support effort
+  - Helps pinpoint the root causes of slow startup times and poor performance across different hardware and regions
+
+# Cloud Public Key Infrastructure (PKI)
+- A cloud based service that allows an organization to create, issue, renew and revoke digital certificates for managed devices and users
+  - Without maintaining its own on-premise certificate authroity (CA)
+
+## Simple Certificate Enrollment Protocol (SCEP)
+- Used to automatically request and install digital certificates on managed devices
 
 # Error Codes
 ## 0x800705B4 Time out Error
@@ -270,6 +304,9 @@
   - Block BYOD for supported platforms
 
 # Delivery Optimization
+## Delivery Optimization Profile
+- A dedicated profile type that provides settings such as Download mode, which controls whether devices use peer to peer, group or internet only downloads, directl addressing the bandwidth reduction requirement.
+
 ## NAT peering
 - Protocol for peer sharing across NAT boundaries
   - Port TCP 7680 Delivery Optimization peer to peer content sharing
@@ -307,6 +344,9 @@
 
 - Designed to avoid unrelated device setings and focus solely on antivirus management
 
+## Endpoint security disk encryption policy
+- Policy that is specifically designed to deploy BitLocker settings and encryption controls to devices manged by Intune.
+
 ## Cloud Protection with sample submission
 - Allows Windows Defender to leverage cloud based threat intelligence and analysis to quickly identify and block newly encountered suspicious files
 
@@ -338,6 +378,10 @@
   - Device compliance issues (Devices that are out of compliance)
   - Configuration drift (Managed devices whose settings have deviated from their assigned policies)
   - Vulnerability Remediation (guidance on addressing software vulnerabilities)
+
+# Virtual Machines
+## Multi-session session hosts
+- Refers to virtual machines that allow multiple users to sign in and use the same Windows OS simultaneously.
 
 # KQL Queries
 - On demand device query is gated by the dedicated `Managed devices > Query` RBAC permission
@@ -402,9 +446,6 @@
   - To retrieve the full results, you will need to follow that link until it is no longer present
   - In scripting, we will need to loop the @odata.nextLink property till the end to get all the results.
 
-# Delivery Optimization Profile
-- A dedicated profile type that provides settings such as Download mode, which controls whether devices use peer to peer, group or internet only downloads, directl addressing the bandwidth reduction requirement.
-
 # Local Administrators Password Solution (LAPS)
 - A policy which manages the local administrator's password for the device
   - Password is also automatically rotated for security purpose.
@@ -450,6 +491,9 @@
 
 - Maintenace window can be set to install updates during the window
 
+## Android compliance policy
+- To create Android compliance policy correctly, admins need to select Android Enterprise profile type.
+
 ## Teams Rooms on Android devices
 - Dedicated `meeting room systems` that run Microsoft Teams
 
@@ -458,6 +502,10 @@
 
 ## Firmware over the air (FOTA) deployment
 - Lets Intune schedule and control delivery of full OS firmware updates to supported managed Android devices
+
+## Android Dedicated Enrollment
+- Enrollment method for company owned devices that are intended for a specific purpose rather than general employee use.
+- Commonly used for kiosk devices like warehouse scanner, signage and shared purpose devices.
 
 ## Device restrictions
 - Device restrictions in Intune allow you to control various settings and features on devices
@@ -492,6 +540,13 @@
 ## Web based Device Enrollment
 - Supports personal devices running iOS/iPadOS 15 or later
 - Uses Safari and does not require Company Portal app
+
+## Apple Configurator for iOS
+- Bulk device management tool specifically designed for configuration, deployment and management of multiple Apple devices
+- Add iPhones, iPads and Apple TVs to Apple Business Manager or Apple School Manager
+
+## Apple Configurator for Mac
+- Prepare, configure, supervise and restore Apple devices, including iPhones, iPads and Apple TVs.
 
 ## Apple Volume Purchase Program (VPP)
 - VPP app licenses can be revoked by administrators in Intune directly from Intune Portal.
