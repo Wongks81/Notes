@@ -1,9 +1,14 @@
 - [Licensing requirements](#licensing-requirements)
   - [Types of Activation](#types-of-activation)
 - [Device join type](#device-join-type)
+  - [Entra registered](#entra-registered)
+  - [Entra joined](#entra-joined)
+  - [Entra hybrid joined](#entra-hybrid-joined)
 - [Bitlocker](#bitlocker)
 - [Scope Tags](#scope-tags)
 - [Cloud Policy Service](#cloud-policy-service)
+- [Cloud PC](#cloud-pc)
+  - [Azure Network Connection](#azure-network-connection)
 - [Applications](#applications)
   - [App Control for Business](#app-control-for-business)
   - [Win32 App](#win32-app)
@@ -12,16 +17,22 @@
 - [Device Configuration Profile](#device-configuration-profile)
   - [Settings Catalog](#settings-catalog)
   - [Templates](#templates)
+- [Remote Help](#remote-help)
+  - [Permissions for Remote Help role Assignment](#permissions-for-remote-help-role-assignment)
 - [Policies](#policies)
+  - [Account Protection policy](#account-protection-policy)
   - [Application Protection Policy](#application-protection-policy)
   - [Application Configuration Policies](#application-configuration-policies)
   - [Managed apps policy](#managed-apps-policy)
   - [Quiet time Policies](#quiet-time-policies)
   - [Driver update policy](#driver-update-policy)
+  - [XML Supplemental Policy](#xml-supplemental-policy)
   - [Cloud policy vs Cloud Updates](#cloud-policy-vs-cloud-updates)
 - [Intune Advanced Analytics](#intune-advanced-analytics)
 - [Cloud Public Key Infrastructure (PKI)](#cloud-public-key-infrastructure-pki)
+  - [Cloud PKI BYOCA (Bring your own Certificate Authority)](#cloud-pki-byoca-bring-your-own-certificate-authority)
   - [Simple Certificate Enrollment Protocol (SCEP)](#simple-certificate-enrollment-protocol-scep)
+- [Microsoft Hosted Network](#microsoft-hosted-network)
 - [Error Codes](#error-codes)
   - [0x800705B4 Time out Error](#0x800705b4-time-out-error)
 - [Administrative Templates](#administrative-templates)
@@ -32,8 +43,11 @@
 - [Autopilot](#autopilot)
   - [Modes of Autopilot](#modes-of-autopilot)
   - [Device Preparation](#device-preparation)
+  - [Device Preparation policy](#device-preparation-policy)
   - [Device name Templates](#device-name-templates)
   - [Autopilot M365 Apps rollout](#autopilot-m365-apps-rollout)
+  - [Autopilot Deployment Profile vs Autopilot Device Preparation Policy](#autopilot-deployment-profile-vs-autopilot-device-preparation-policy)
+- [Microsoft 365 Apps](#microsoft-365-apps)
 - [Intune Enrollment Restrictions](#intune-enrollment-restrictions)
   - [Device Platform restrictions](#device-platform-restrictions)
 - [Delivery Optimization](#delivery-optimization)
@@ -47,12 +61,19 @@
   - [Devices settings](#devices-settings)
   - [Antivirus Policy](#antivirus-policy)
   - [Endpoint security disk encryption policy](#endpoint-security-disk-encryption-policy)
+  - [Endpoint Security firewall policy](#endpoint-security-firewall-policy)
+  - [Signature Update Fallback Order](#signature-update-fallback-order)
   - [Cloud Protection with sample submission](#cloud-protection-with-sample-submission)
+  - [Local policy merge](#local-policy-merge)
 - [Security Baseline](#security-baseline)
   - [Per-setting status report](#per-setting-status-report)
 - [Security Copilot](#security-copilot)
 - [Virtual Machines](#virtual-machines)
   - [Multi-session session hosts](#multi-session-session-hosts)
+- [Virtualization Based Security (VBE)](#virtualization-based-security-vbe)
+- [Compiled Hybrid Portable Executable (CHPE)](#compiled-hybrid-portable-executable-chpe)
+- [Hotpatch](#hotpatch)
+- [Updates months](#updates-months)
 - [KQL Queries](#kql-queries)
 - [Diagnostic upload endpoint](#diagnostic-upload-endpoint)
 - [Update Rings](#update-rings)
@@ -62,17 +83,17 @@
 - [Microsoft Graph](#microsoft-graph)
 - [Local Administrators Password Solution (LAPS)](#local-administrators-password-solution-laps)
 - [Enterprise App Catalog](#enterprise-app-catalog-1)
-- [Remote Help](#remote-help)
+- [Remote Help](#remote-help-1)
 - [FIDO2 Keys](#fido2-keys)
 - [Attack Surface Reduction (ASR)](#attack-surface-reduction-asr)
 - [Azure Monitor Workbook](#azure-monitor-workbook)
-- [Cloud PKI(Public Key Infrastructure) for Microsoft Intune](#cloud-pkipublic-key-infrastructure-for-microsoft-intune)
 - [Android or Google Related](#android-or-google-related)
   - [Android compliance policy](#android-compliance-policy)
   - [Teams Rooms on Android devices](#teams-rooms-on-android-devices)
   - [Android Open Source Project (AOSP) management](#android-open-source-project-aosp-management)
   - [Firmware over the air (FOTA) deployment](#firmware-over-the-air-fota-deployment)
   - [Android Dedicated Enrollment](#android-dedicated-enrollment)
+  - [QR code enrollment](#qr-code-enrollment)
   - [Device restrictions](#device-restrictions)
 - [Apple or iOS related](#apple-or-ios-related)
   - [.mobileconfig](#mobileconfig)
@@ -86,8 +107,9 @@
   - [Device features template](#device-features-template)
   - [Userless MacOS Devices](#userless-macos-devices)
   - [Apple Device Management](#apple-device-management)
-  - [Setting Catalog](#setting-catalog)
-  - [Preference file Template](#preference-file-template)
+    - [Setting Catalog](#setting-catalog)
+    - [Preference file Template](#preference-file-template)
+    - [Declarative Device Management (DDM)](#declarative-device-management-ddm)
   - [Endpoint Security](#endpoint-security)
     - [macOS FileVault policy](#macos-filevault-policy)
 - [Linux related](#linux-related)
@@ -107,7 +129,7 @@
 |Volume Activation| Organization uses 1 Product key to activate X number of devices| 
 
 # Device join type
-- Entra registered
+## Entra registered
   - Mainly for Personnel or BYOD devices
 
   - Device is Entra registered when a user connects their work/school account to a device that isn't necessarily owned by the organization
@@ -115,15 +137,19 @@
   - Device gets an identity in Entra ID but Windows does not necessarily use the company's Entra account as the primary device.
   > Primary device login would be the laptop account login for the BYOD device.
 
-- Entra joined
+## Entra joined
   - Mainly for devices that are given to you by company
 
   - Device is Entra joined when Windows device is joined directly to organization's Entra tenant
 
   - Entra Joined is necessary for device name template to apply during enrollment
 
-- Entra hybrid joined
+  - Is only available for Pro and Enterprise editions of windows, not available for Home edition.
+
+## Entra hybrid joined
   - Mainly for devices that are joined to traditional on premises AD and then registered to Entra ID
+  - When using Autopilot to configure naming template, only the prefix will be captured.
+    - E.g. If naming template is `IT-%SERIAL%`, only IT will be captured, %SERIAL% will be ignored.
 
 # Bitlocker
 - BitLocker key rotation is a security feature that is designed to rotate BitLocker recovery key for individual devices.
@@ -144,7 +170,17 @@
 
 - User need to be signed in and has a valid license for the policies to be applied successfully
 
+- Cloud policy might not be applied if authenticated proxy is unable to authenticate the user, even if the user have the proper license
+
 - Device does not need to be enrolled, policy settings for M365 Apps can be applied and enforced on unmanaged devices.
+
+# Cloud PC
+> Something like a virtual client on the cloud
+- A virtual Windows computer hosted in Azure which users can access remotely from their physical devices.
+- To provision Cloud PC, we need to assign Windows 365 licenses and create a provisioning policy.
+
+## Azure Network Connection
+- Connects Windows 365 Cloud PCs to an organization Azure Virtual Network (VNet) then connect to on premises Network.
 
 # Applications
 ## App Control for Business
@@ -179,9 +215,24 @@
 - Predefined collection fro a particular purpose
 - Start with a specific configuration type
 
+# Remote Help
+## Permissions for Remote Help role Assignment
+- Helpers need `Remote Tasks - Offer remote assistance` and `Remote Assistance Connector - Read` and at least one of Remote Help permission such as View Screen or Take control to provide help.
+
+- `Remote Help - Elevation` is for interacting with UAC prompts, optional for remote help sessions.
+
 # Policies
+
+## Account Protection policy
+- Allows admins to configure settings related to user account security which includes Windows Hello for Business
+- Policy can target a specific groups of users or devices
+
 ## Application Protection Policy
 > What can the user do with the data inside the app
+
+- Policy is assigned to group of users not devices
+  
+- Should be applied before related Conditional Access rules are enforced on exisitng devices.
 
 - Data protection policy for the application, what and where you can copy and paste, can be disabled.
 
@@ -209,6 +260,11 @@
 ## Driver update policy
 - Let admins review, approve and control the rollout of driver updates distributed via Windows Update for Business
 
+## XML Supplemental Policy
+- Related to Microsoft Defender Application Control (WDAC)
+- Allows administrators to deploy an additional XML policy to supplement an exisiting Application Control policy
+- Base policies are the main application control rules while XML supplemental policy add permissions or rules to an existing base policy
+
 ## Cloud policy vs Cloud Updates
 - Cloud policy is used to enforce policies and settings for cloud based services in M365
   - Can be used to manage M365 Apps updates
@@ -224,8 +280,18 @@
 - A cloud based service that allows an organization to create, issue, renew and revoke digital certificates for managed devices and users
   - Without maintaining its own on-premise certificate authroity (CA)
 
+- Not a generic certificate issuance platform for any endpoints that is no Intune managed
+
+## Cloud PKI BYOCA (Bring your own Certificate Authority)
+- Allows organizations to maintain their trusted private root CA while moving the issuing operations for Intune managed devices into the cloud.
+  - Supports the design of keeping the existing trust anchor while leveraging cloud based PKI services
+
 ## Simple Certificate Enrollment Protocol (SCEP)
 - Used to automatically request and install digital certificates on managed devices
+
+# Microsoft Hosted Network
+- Provides a fully managed network infrastructure by Microsoft
+- Helps reduce networking overhead and streamline Windows 365 rollout process
 
 # Error Codes
 ## 0x800705B4 Time out Error
@@ -242,6 +308,10 @@
 - Accounts that is an emergency administrator account to use when normal administrator accoutns cannot access the environmennt.
 
 # Windows Hello for Business 
+- Even when biometric sign in is created, user will still need to create a PIN as a fallback
+- Account protection can be setup for managing WHfB settings on devices after enrollment
+- Certificate trust take over precedence when both Certificate trust and Cloud trust are enabled.
+
 ## Cloud Deployment
 >Entra ID handles the identity and sign in, no trust model is needed
   - Device is joined to Entra ID rather then On Premise AD
@@ -264,6 +334,8 @@
 
 # Autopilot 
 
+- If a device is already a Windows Autopilot device and has an assigned profile, it takes precedence over the JSON file installed by the task sequence.
+
 ## Modes of Autopilot
   - Pre-provisioning mode (white glove)
     - This mode requires minimum sign in experience on first boot
@@ -284,9 +356,28 @@
 ## Device Preparation
 ![](images/2026-10-05-04-19-37.png)
 
-  - Device Preparation trackes Intuen Management Extension installation
+
+  - Device Preparation trackes Intune Management Extension installation
   - Device Setup tracks apps, certs and policies assigned to the device
   - Account Setup tracks apps, certs and policies assignend to the user
+
+## Device Preparation policy
+![](images/2026-11-08-04-52-57.png)
+- User targeted policy to initiate deployment
+- Must be deregistered from Windows Autopilot before it can run Device Preparation policy.
+- Do not require the physical devices to be preregistered as Autopilot devices
+  - Support user driven Microsoft Entra join
+- Selected applications and PowerShell scripts must also be assigned to device security group
+- Supports Entra joined only
+
+- How it works:
+  1. Administrator creates a device preparation policy.
+  2. Assigns it to a user group.
+  3. User switches on a new Windows device.
+  4. User signs in with their work account.
+  5. Device preparation begins.
+  6. Device is automatically added to a specified device security group.
+  7. Selected applications and PowerShell scripts are installed.
 
 ## Device name Templates
 - Limited to 15 characters, matching NetBIOs limit
@@ -296,6 +387,14 @@
 ## Autopilot M365 Apps rollout
 - Office Customization Tool (OCT) creates and exports configuration files that are used with Office Deployment Tools (ODT)
 - Win32 apps in Intune are deployed using the Intune Management Extension
+
+## Autopilot Deployment Profile vs Autopilot Device Preparation Policy
+- Deployment profile is the traditional Windows Autopilot
+- Device Preparation policy is a newer simplified deployment method
+
+# Microsoft 365 Apps
+- XML data for configuration is required when you are using Business edition
+- XML allows for detailed customization of deployment which can includes or excludes specific applications from the M365 Office suite of apps. 
 
 # Intune Enrollment Restrictions
 ## Device Platform restrictions
@@ -347,8 +446,17 @@
 ## Endpoint security disk encryption policy
 - Policy that is specifically designed to deploy BitLocker settings and encryption controls to devices manged by Intune.
 
+## Endpoint Security firewall policy
+- Policy specifically targets firewall settings and allows admin to configure and enforce firewall rules.
+
+## Signature Update Fallback Order
+- This settings determines the order in which Defender attempts to update signatures when the primary update source is unavailable or delayed
+
 ## Cloud Protection with sample submission
 - Allows Windows Defender to leverage cloud based threat intelligence and analysis to quickly identify and block newly encountered suspicious files
+
+## Local policy merge
+- Determines whether settings configured locally on a Windows device (E.g. GPO) can be merged with settings deployed through Intune or other management tools.
 
 # Security Baseline
 - A group of preconfigured settings recommended by Microsoft security team.
@@ -382,6 +490,29 @@
 # Virtual Machines
 ## Multi-session session hosts
 - Refers to virtual machines that allow multiple users to sign in and use the same Windows OS simultaneously.
+- When designing multi session
+  - Unsupported templates are not delivered to devices and policies appear as Not Applicable in reports
+  - Using Settings picker filter with OS edition = Enterprise multi session to show configuration categories and settings that support that platform.
+
+# Virtualization Based Security (VBE)
+> protect windows
+- Uses hardware virtualization and the Windows hypervisor to create and isolated, secure environment within Windows
+- Purpose is to protect sensitive Windows security functions even if the normal Windows OS is compromised
+
+# Compiled Hybrid Portable Executable (CHPE)
+> Helps older x86 applications to run on ARM
+- Windows technology used on ARM64 devices to improve the performance of 32 bit x86 applications
+
+# Hotpatch
+- For Windows 11 ARM64 devices to receive Hotpatch updates:
+  - VBS must be enabled
+  - CHPE must be disabled
+    - CHPE binaries are incompatible with Hotpatch servicing
+  - device must meet other Hotpatch requirements
+
+# Updates months
+- Jan, April, July and Oct are baseline months that runs cumulative updates
+- The remaining eight scheduled months are Hotpatch months
 
 # KQL Queries
 - On demand device query is gated by the dedicated `Managed devices > Query` RBAC permission
@@ -415,6 +546,8 @@
 
 - Deadline Grace Period
   - The amount of days to allow users to postphone the required restart after the update.
+
+- Feature update uninstall period is 2 to 60 days
 
 # Microsoft Tunnel Gateway 
 - To install it on a Linux server, it must run on a currently supported Linux distribution, be reachable by mobile devices at its published address and have a supported container runtime installed.
@@ -479,11 +612,13 @@
 
 - If Windows Defender in ASR profile is set to `Passive` mode, the antivirus will not actively block any threats and will only monitor and report them.
 
+- Rule `Block persistence through WMI event subscription` does not support the Warn experience in Intune.
+  - Users will not see a bypass prompt for this specific rule even if it is included in the ASR deployment
+
 # Azure Monitor Workbook
 - An interactive reporting tool visualize data from logs and metrics into tables, charts and other visualizations
 
-# Cloud PKI(Public Key Infrastructure) for Microsoft Intune
-- Cloud PKI is a cloud based, fully managed PKI service offered as part of Intune Suite, eliminating the need for on premises CA infrastructure.
+
 -----
 
 # Android or Google Related
@@ -506,6 +641,9 @@
 ## Android Dedicated Enrollment
 - Enrollment method for company owned devices that are intended for a specific purpose rather than general employee use.
 - Commonly used for kiosk devices like warehouse scanner, signage and shared purpose devices.
+
+## QR code enrollment
+- A way to enroll Android Enterprise devices by scanning a QR code during device initial setup
 
 ## Device restrictions
 - Device restrictions in Intune allow you to control various settings and features on devices
@@ -547,6 +685,8 @@
 
 ## Apple Configurator for Mac
 - Prepare, configure, supervise and restore Apple devices, including iPhones, iPads and Apple TVs.
+- Is an Apple bulk enrollment path for corporate owned devices
+  - Especially appropriate when Apple Business Manage or Apple School Manager is not available and admins have physical access to the devices with a Mac.
 
 ## Apple Volume Purchase Program (VPP)
 - VPP app licenses can be revoked by administrators in Intune directly from Intune Portal.
@@ -566,13 +706,17 @@
 ## Apple Device Management
 - Supervision state gives an organization greater control over the device
 
-## Setting Catalog
+### Setting Catalog
 - Settings catalog is a common place to configure settings
 - The settings depends on OS and platform, meaning Windows and Mac each have its own setting catalog
 
-## Preference file Template
+### Preference file Template
 - For preconfiguring line of business macOS app by deploying its .plist settings file
 - Allows you to define and deploy custom preferences and settings for macOS apps
+
+### Declarative Device Management (DDM)
+- Is an Apple device management feature that allows Intune to manage software updates on supported Apple devices
+- Uses Apple's declarative management system to manage the update according to policy
 
 ## Endpoint Security
 ### macOS FileVault policy
